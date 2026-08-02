@@ -1,0 +1,125 @@
+import fs from "node:fs";
+import path from "node:path";
+
+import matter from "gray-matter";
+
+import { CHAPTERS_META, type ChapterMeta, type MemoryBlockConfig } from "@/content/chaptersMeta";
+
+const STORIES_DIR = path.join(process.cwd(), "content", "stories");
+const WORDS_PER_MINUTE = 220;
+
+export type BodySegment =
+  | { type: "markdown"; content: string }
+  | { type: "memory"; content: string };
+
+export type Chapter = ChapterMeta & {
+  /** The reading flow, pre-split around any memory-block markers. The
+   *  manuscript's own title heading and final reflection section are
+   *  excluded (rendered separately by ChapterHero / ReflectionBlock). */
+  bodySegments: BodySegment[];
+  /** Markdown for the reflection — everything after the manuscript's
+   *  final `---` divider. Never invented; always the author's own words. */
+  reflection: string;
+  /** Rounded-up minutes at ~220 words per minute. */
+  readingTime: number;
+};
+
+function stripLeadingHeading(markdown: string): string {
+  return markdown.replace(/^\s*#\s+.+?\n+/, "");
+}
+
+/** Everything after the manuscript's LAST `---` divider is the reflection. */
+function splitReflection(markdown: string): { body: string; reflection: string } {
+  const lines = markdown.split("\n");
+  const dividerIndices: number[] = [];
+  lines.forEach((line, i) => {
+    if (line.trim() === "---") dividerIndices.push(i);
+  });
+
+  if (dividerIndices.length === 0) {
+    return { body: markdown.trim(), reflection: "" };
+  }
+
+  const lastDivider = dividerIndices[dividerIndices.length - 1];
+  return {
+    body: lines.slice(0, lastDivider).join("\n").trim(),
+    reflection: lines.slice(lastDivider + 1).join("\n").trim(),
+  };
+}
+
+/**
+ * Splits the body around each configured memory-block range. Markers are
+ * exact manuscript substrings — this only locates where a block starts
+ * and ends; it never alters a single word.
+ */
+function splitMemoryBlocks(markdown: string, blocks: MemoryBlockConfig[] = []): BodySegment[] {
+  const segments: BodySegment[] = [];
+  let remaining = markdown;
+
+  for (const block of blocks) {
+    const startIdx = remaining.indexOf(block.startMarker);
+    if (startIdx === -1) continue;
+
+    const endMarkerIdx = remaining.indexOf(block.endMarker, startIdx);
+    if (endMarkerIdx === -1) continue;
+
+    const endIdx = endMarkerIdx + block.endMarker.length;
+
+    const before = remaining.slice(0, startIdx).trim();
+    const memory = remaining.slice(startIdx, endIdx).trim();
+    remaining = remaining.slice(endIdx).trim();
+
+    if (before) segments.push({ type: "markdown", content: before });
+    segments.push({ type: "memory", content: memory });
+  }
+
+  if (remaining) segments.push({ type: "markdown", content: remaining });
+
+  return segments;
+}
+
+function countWords(markdown: string): number {
+  return markdown
+    .replace(/[#*_>`-]/g, " ")
+    .split(/\s+/)
+    .filter(Boolean).length;
+}
+
+function loadChapter(meta: ChapterMeta): Chapter {
+  const filePath = path.join(STORIES_DIR, meta.filename);
+  const raw = fs.readFileSync(filePath, "utf8");
+  const { data, content } = matter(raw);
+
+  // Frontmatter, if a future chapter file includes it, overrides the
+  // application-level registry — never the other way around.
+  const merged: ChapterMeta = {
+    ...meta,
+    title: data.title ?? meta.title,
+    subtitle: data.subtitle ?? meta.subtitle,
+    number: data.chapter ?? meta.number,
+  };
+
+  const withoutHeading = stripLeadingHeading(content);
+  const { body, reflection } = splitReflection(withoutHeading);
+  const bodySegments = splitMemoryBlocks(body, meta.memoryBlocks);
+  const readingTime = Math.max(1, Math.round(countWords(content) / WORDS_PER_MINUTE));
+
+  return { ...merged, bodySegments, reflection, readingTime };
+}
+
+export function getAllChapters(): Chapter[] {
+  return [...CHAPTERS_META].sort((a, b) => a.number - b.number).map(loadChapter);
+}
+
+export function getChapterBySlug(slug: string): Chapter | undefined {
+  const meta = CHAPTERS_META.find((chapter) => chapter.slug === slug);
+  return meta ? loadChapter(meta) : undefined;
+}
+
+export function getChapterSlugs(): string[] {
+  return CHAPTERS_META.map((chapter) => chapter.slug);
+}
+
+export function getFirstChapterSlug(): string {
+  return CHAPTERS_META[0].slug;
+}

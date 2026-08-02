@@ -1,26 +1,143 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-playfair);
   --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  /* Project HOME — restrained brand accent, used sparingly and never as a
+     structural UI color (focus rings, CTA arrows, small flourishes only). */
+  --color-gold: var(--gold);
+  --color-success: var(--success);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  /* Background — "paper", never glass or plastic */
+  --background: #faf8f5;
+  --foreground: #1e1e1e;
+
+  --card: #ffffff;
+  --card-foreground: #1e1e1e;
+  --popover: #ffffff;
+  --popover-foreground: #1e1e1e;
+
+  /* Primary button — filled dark, light text */
+  --primary: #1e1e1e;
+  --primary-foreground: #faf8f5;
+
+  /* Secondary surfaces / secondary button fill */
+  --secondary: #f4f1ec;
+  --secondary-foreground: #1e1e1e;
+
+  --muted: #f4f1ec;
+  --muted-foreground: #6b6b6b;
+
+  /* Kept neutral on purpose — shadcn uses this for hover/active mechanics.
+     The intentional brand accent lives in --gold, applied by hand. */
+  --accent: #f4f1ec;
+  --accent-foreground: #1e1e1e;
+
+  --destructive: #c0392b;
+  --border: #e8e4de;
+  --input: #e8e4de;
+  /* A deeper goldenrod than the decorative --gold below — clears the 3:1
+     WCAG non-text contrast minimum for focus indicators on every
+     background the ring appears against (measured, not eyeballed). */
+  --ring: #a8790a;
+
+  --radius: 0.75rem;
+
+  --gold: #b8860b;
+  --success: #4caf50;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1e1e1e;
+  --sidebar-primary: #1e1e1e;
+  --sidebar-primary-foreground: #faf8f5;
+  --sidebar-accent: #f4f1ec;
+  --sidebar-accent-foreground: #1e1e1e;
+  --sidebar-border: #e8e4de;
+  --sidebar-ring: #a8790a;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans scroll-smooth;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  ::selection {
+    background-color: var(--gold);
+    color: var(--foreground);
+  }
+}
+
+/*
+ * Hero ambient motion — an extremely subtle, slow-drifting warm glow.
+ * Pure CSS (no scroll listeners, no JS cost) so it can't affect Lighthouse
+ * or FPS. Frozen entirely under prefers-reduced-motion.
+ */
+@keyframes hero-ambient-drift {
+  0%,
+  100% {
+    transform: translate(-4%, -3%) scale(1);
+  }
+  50% {
+    transform: translate(3%, 2%) scale(1.06);
+  }
+}
+
+.hero-ambient {
+  animation: hero-ambient-drift 32s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-ambient {
+    animation: none;
+  }
 }
