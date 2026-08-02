@@ -8,17 +8,23 @@
  * prefers that over this registry — this is the fallback for chapters
  * that don't.
  *
- * `memoryBlocks` and `reflection` are never invented text: every marker
- * below is an exact substring copied from the manuscript, used only to
- * locate where a special visual treatment begins and ends. The words
- * themselves are never altered.
+ * Every marker below (`startMarker`/`endMarker`) is an exact substring
+ * copied from the manuscript, used only to locate where a special visual
+ * treatment begins and ends. The words themselves are never altered, and
+ * `location`/`year` are only ever filled in where the manuscript states
+ * them plainly — never inferred or invented.
  */
 
-export type MemoryBlockConfig = {
+export type TextRange = {
   /** Exact substring from the manuscript marking where the block starts. */
   startMarker: string;
   /** Exact substring from the manuscript marking where the block ends. */
   endMarker: string;
+};
+
+export type MemoryBlockConfig = TextRange & {
+  title: string;
+  location?: string;
 };
 
 export type ArmyJourneyCallout = {
@@ -43,6 +49,8 @@ export type ChapterMeta = {
   backgroundTint: string;
   illustrationKey: "nokia" | "html" | "workspace" | "compass" | "windowSeat" | "desk";
   memoryBlocks?: MemoryBlockConfig[];
+  /** One verbatim, self-contained sentence — the chapter's pull quote. */
+  pullQuote?: TextRange;
   armyJourneyCallout?: ArmyJourneyCallout;
   supportingDetails?: SupportingDetail[];
 };
@@ -58,14 +66,20 @@ export const CHAPTERS_META: ChapterMeta[] = [
     illustrationKey: "nokia",
     memoryBlocks: [
       {
+        title: "The Old Nokia Phone",
         startMarker: "When I was around twelve years old, my mother owned a small Nokia phone.",
         endMarker: "To me, it was something waiting to be explored.",
       },
       {
+        title: "Three Attempts",
         startMarker: "Three attempts.",
         endMarker: '"Not this path."',
       },
     ],
+    pullQuote: {
+      startMarker: "Life wasn't closing a door.",
+      endMarker: "It was simply refusing to let me enter the wrong one.",
+    },
     armyJourneyCallout: {
       heading: "Three Attempts. Same Ending.",
       attempts: 3,
@@ -88,10 +102,16 @@ export const CHAPTERS_META: ChapterMeta[] = [
     illustrationKey: "html",
     memoryBlocks: [
       {
+        title: "The Copied HTML File",
+        location: "Code Pros",
         startMarker: "One of my earliest tasks was to build an HTML landing page.",
         endMarker: "Copied everything.",
       },
     ],
+    pullQuote: {
+      startMarker: "That willingness turned out to matter far more than experience.",
+      endMarker: "That willingness turned out to matter far more than experience.",
+    },
   },
   {
     slug: "the-place-that-believed-in-me",
@@ -103,10 +123,16 @@ export const CHAPTERS_META: ChapterMeta[] = [
     illustrationKey: "workspace",
     memoryBlocks: [
       {
+        title: "Walking Into Code Pros",
+        location: "Code Pros",
         startMarker: "For me, one of those moments arrived when I walked into Code Pros.",
         endMarker: "I had found something much more valuable.",
       },
     ],
+    pullQuote: {
+      startMarker: "Growth rarely arrives after we feel ready.",
+      endMarker: "Confidence catches up later.",
+    },
   },
   {
     slug: "leading-beyond-code",
@@ -116,6 +142,10 @@ export const CHAPTERS_META: ChapterMeta[] = [
     subtitle: "What does leadership actually mean?",
     backgroundTint: "#f5f7f8",
     illustrationKey: "compass",
+    pullQuote: {
+      startMarker: "Mistakes are not evidence that someone shouldn't lead.",
+      endMarker: "They're evidence that someone is still learning how.",
+    },
   },
   {
     slug: "window-seat",
@@ -127,10 +157,16 @@ export const CHAPTERS_META: ChapterMeta[] = [
     illustrationKey: "windowSeat",
     memoryBlocks: [
       {
+        title: "The Window Seat",
+        location: "Tribhuvan International Airport, Kathmandu",
         startMarker: "Boarding.",
         endMarker: "It felt strangely symbolic.",
       },
     ],
+    pullQuote: {
+      startMarker: "Sometimes changing countries also changes the way we look at our own lives.",
+      endMarker: "Sometimes changing countries also changes the way we look at our own lives.",
+    },
     supportingDetails: [
       { icon: "MapPin", label: "Tribhuvan International Airport, Kathmandu" },
       { icon: "MapPin", label: "Singapore — transit" },
@@ -145,6 +181,10 @@ export const CHAPTERS_META: ChapterMeta[] = [
     subtitle: "What am I still searching for?",
     backgroundTint: "#faf6ee",
     illustrationKey: "desk",
+    pullQuote: {
+      startMarker: "Peace doesn't come from pleasing everybody.",
+      endMarker: "It comes from acting with honesty and accepting that some paths simply aren't yours to control.",
+    },
   },
 ];
 

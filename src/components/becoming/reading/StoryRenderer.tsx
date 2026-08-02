@@ -14,35 +14,46 @@ import { MemoryCard } from "./MemoryCard";
  * Renders the manuscript's markdown exactly as written — headings,
  * paragraphs, emphasis, links, dividers, and (if ever used) blockquotes —
  * with only one addition: paragraphs entering the viewport fade up
- * gently, per docs/becoming/05_BECOMING_INTERACTIONS.md.
+ * gently, per docs/becoming/05_BECOMING_INTERACTIONS.md. Paragraph-group
+ * spacing (48px) follows 01_EDITORIAL_SYSTEM.md's Vertical Rhythm.
  */
 function MarkdownFlow({ markdown }: { markdown: string }) {
   return (
-    <ReactMarkdown
-      components={{
-        p: ({ children }) => (
-          <FadeIn distance={8} duration={0.4}>
-            <Paragraph constrained={false} className="text-pretty">
-              {children}
-            </Paragraph>
-          </FadeIn>
-        ),
-        hr: () => <Divider className="my-10" />,
-        blockquote: ({ children }) => (
-          <FadeIn duration={0.6} distance={0}>
-            <QuoteBlock className="my-10">{String(children)}</QuoteBlock>
-          </FadeIn>
-        ),
-        h2: ({ children }) => (
-          <h2 className="mt-12 font-heading text-2xl text-foreground">{children}</h2>
-        ),
-        h3: ({ children }) => (
-          <h3 className="mt-10 font-heading text-xl text-foreground">{children}</h3>
-        ),
-      }}
-    >
-      {markdown}
-    </ReactMarkdown>
+    <div className="space-y-12">
+      <ReactMarkdown
+        components={{
+          p: ({ children }) => (
+            <FadeIn distance={8} duration={0.4}>
+              <Paragraph constrained={false} className="text-pretty">
+                {children}
+              </Paragraph>
+            </FadeIn>
+          ),
+          hr: () => <Divider className="my-12" />,
+          h2: ({ children }) => (
+            <h2 className="mt-12 font-heading text-2xl text-foreground">{children}</h2>
+          ),
+          h3: ({ children }) => (
+            <h3 className="mt-10 font-heading text-xl text-foreground">{children}</h3>
+          ),
+        }}
+      >
+        {markdown}
+      </ReactMarkdown>
+    </div>
+  );
+}
+
+/**
+ * The chapter's one pull quote — a fade only, per BECOMING_INTERACTIONS.md's
+ * "Quote Reveal" ("No movement. No scaling. The words already carry enough
+ * weight."), with the 96px breathing room 01_EDITORIAL_SYSTEM.md specifies.
+ */
+function PullQuote({ markdown }: { markdown: string }) {
+  return (
+    <FadeIn duration={0.6} distance={0} className="my-24">
+      <QuoteBlock>{markdown.replace(/\n+/g, " ")}</QuoteBlock>
+    </FadeIn>
   );
 }
 
@@ -79,7 +90,7 @@ export function StoryRenderer({ segments, injections = [], fallbackVisual }: Sto
   const memoryIndices = indexMemorySegments(segments);
 
   return (
-    <div className="space-y-6">
+    <div>
       {segments.map((segment, index) => {
         if (segment.type === "memory") {
           const injection = injections.find(
@@ -87,15 +98,22 @@ export function StoryRenderer({ segments, injections = [], fallbackVisual }: Sto
           );
           return (
             <div key={index}>
-              <MemoryCard markdown={segment.content} />
-              {injection && <div className="my-10 max-w-[420px]">{injection.element}</div>}
+              <MemoryCard
+                markdown={segment.content}
+                title={segment.title}
+                location={segment.location}
+              />
+              {injection && <div className="my-18 max-w-[420px]">{injection.element}</div>}
             </div>
           );
+        }
+        if (segment.type === "pullQuote") {
+          return <PullQuote key={index} markdown={segment.content} />;
         }
         return <MarkdownFlow key={index} markdown={segment.content} />;
       })}
       {!hasAnyMemory && fallbackVisual && (
-        <div className="my-10 max-w-[420px]">{fallbackVisual}</div>
+        <div className="my-18 max-w-[420px]">{fallbackVisual}</div>
       )}
     </div>
   );

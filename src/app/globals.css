@@ -132,6 +132,30 @@
   }
 }
 
+/*
+ * Notebook filter transition — a soft, JS-free cross-fade applied whenever
+ * the category/search selection changes and the grid remounts. No layout
+ * animation, no scale, nothing "flashy" per 03_NOTEBOOK_LAYOUT.md.
+ */
+@keyframes notebook-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.notebook-fade-in {
+  animation: notebook-fade-in 0.3s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .notebook-fade-in {
+    animation: none;
+  }
+}
+
 .hero-ambient {
   animation: hero-ambient-drift 32s ease-in-out infinite;
 }

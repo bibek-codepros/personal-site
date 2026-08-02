@@ -3,19 +3,21 @@ import path from "node:path";
 
 import matter from "gray-matter";
 
-import { CHAPTERS_META, type ChapterMeta, type MemoryBlockConfig } from "@/content/chaptersMeta";
+import { CHAPTERS_META, type ChapterMeta, type MemoryBlockConfig, type TextRange } from "@/content/chaptersMeta";
 
 const STORIES_DIR = path.join(process.cwd(), "content", "stories");
 const WORDS_PER_MINUTE = 220;
 
 export type BodySegment =
   | { type: "markdown"; content: string }
-  | { type: "memory"; content: string };
+  | { type: "memory"; content: string; title: string; location?: string }
+  | { type: "pullQuote"; content: string };
 
 export type Chapter = ChapterMeta & {
-  /** The reading flow, pre-split around any memory-block markers. The
-   *  manuscript's own title heading and final reflection section are
-   *  excluded (rendered separately by ChapterHero / ReflectionBlock). */
+  /** The reading flow, pre-split around any memory-block / pull-quote
+   *  markers. The manuscript's own title heading and final reflection
+   *  section are excluded (rendered separately by ChapterHero /
+   *  ReflectionBlock). */
   bodySegments: BodySegment[];
   /** Markdown for the reflection — everything after the manuscript's
    *  final `---` divider. Never invented; always the author's own words. */
@@ -47,35 +49,66 @@ function splitReflection(markdown: string): { body: string; reflection: string }
   };
 }
 
+type SpecialRange = TextRange & (
+  | { kind: "memory"; title: string; location?: string }
+  | { kind: "pullQuote" }
+);
+
 /**
- * Splits the body around each configured memory-block range. Markers are
- * exact manuscript substrings — this only locates where a block starts
- * and ends; it never alters a single word.
+ * Splits the body around every configured memory-block and pull-quote
+ * range, in the order they actually appear in the manuscript (not config
+ * order) — markers only locate text; they never alter a single word.
  */
-function splitMemoryBlocks(markdown: string, blocks: MemoryBlockConfig[] = []): BodySegment[] {
+function splitSpecialRanges(markdown: string, ranges: SpecialRange[]): BodySegment[] {
+  const located = ranges
+    .map((range) => {
+      const startIdx = markdown.indexOf(range.startMarker);
+      if (startIdx === -1) return null;
+      const endMarkerIdx = markdown.indexOf(range.endMarker, startIdx);
+      if (endMarkerIdx === -1) return null;
+      const endIdx = endMarkerIdx + range.endMarker.length;
+      return { ...range, startIdx, endIdx };
+    })
+    .filter((r): r is NonNullable<typeof r> => r !== null)
+    .sort((a, b) => a.startIdx - b.startIdx);
+
   const segments: BodySegment[] = [];
-  let remaining = markdown;
+  let cursor = 0;
 
-  for (const block of blocks) {
-    const startIdx = remaining.indexOf(block.startMarker);
-    if (startIdx === -1) continue;
-
-    const endMarkerIdx = remaining.indexOf(block.endMarker, startIdx);
-    if (endMarkerIdx === -1) continue;
-
-    const endIdx = endMarkerIdx + block.endMarker.length;
-
-    const before = remaining.slice(0, startIdx).trim();
-    const memory = remaining.slice(startIdx, endIdx).trim();
-    remaining = remaining.slice(endIdx).trim();
-
+  for (const range of located) {
+    const before = markdown.slice(cursor, range.startIdx).trim();
+    const content = markdown.slice(range.startIdx, range.endIdx).trim();
     if (before) segments.push({ type: "markdown", content: before });
-    segments.push({ type: "memory", content: memory });
+
+    if (range.kind === "memory") {
+      segments.push({ type: "memory", content, title: range.title, location: range.location });
+    } else {
+      segments.push({ type: "pullQuote", content });
+    }
+
+    cursor = range.endIdx;
   }
 
+  const remaining = markdown.slice(cursor).trim();
   if (remaining) segments.push({ type: "markdown", content: remaining });
 
   return segments;
+}
+
+function toSpecialRanges(memoryBlocks: MemoryBlockConfig[] = [], pullQuote?: TextRange): SpecialRange[] {
+  const ranges: SpecialRange[] = memoryBlocks.map((block) => ({
+    kind: "memory",
+    startMarker: block.startMarker,
+    endMarker: block.endMarker,
+    title: block.title,
+    location: block.location,
+  }));
+
+  if (pullQuote) {
+    ranges.push({ kind: "pullQuote", startMarker: pullQuote.startMarker, endMarker: pullQuote.endMarker });
+  }
+
+  return ranges;
 }
 
 function countWords(markdown: string): number {
@@ -101,7 +134,7 @@ function loadChapter(meta: ChapterMeta): Chapter {
 
   const withoutHeading = stripLeadingHeading(content);
   const { body, reflection } = splitReflection(withoutHeading);
-  const bodySegments = splitMemoryBlocks(body, meta.memoryBlocks);
+  const bodySegments = splitSpecialRanges(body, toSpecialRanges(meta.memoryBlocks, meta.pullQuote));
   const readingTime = Math.max(1, Math.round(countWords(content) / WORDS_PER_MINUTE));
 
   return { ...merged, bodySegments, reflection, readingTime };

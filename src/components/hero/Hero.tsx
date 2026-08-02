@@ -40,11 +40,9 @@ export function Hero() {
               </p>
 
               <Heading variant="hero" as="h1" className="mt-6">
-                I thought my life would wear an Army uniform.
+                Life didn&rsquo;t go the way I planned.
                 <br />
-                Instead&hellip;
-                <br />
-                it taught me how to build things.
+                Looking back, I&rsquo;m glad it didn&rsquo;t.
               </Heading>
             </FadeIn>
 
