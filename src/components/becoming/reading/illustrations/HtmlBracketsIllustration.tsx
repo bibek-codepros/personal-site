@@ -14,9 +14,9 @@ export function HtmlBracketsIllustration() {
         className="h-2/3 w-2/3 text-muted-foreground"
         aria-hidden="true"
       >
-        <path d="M92 68 L54 120 L92 172" />
-        <path d="M112 68 L150 120 L112 172" />
-        <line x1="108" y1="66" x2="96" y2="174" />
+        <path d="M84 72 L48 120 L84 168" />
+        <path d="M116 72 L152 120 L116 168" />
+        <line x1="106" y1="96" x2="94" y2="144" />
       </svg>
     </IllustrationFrame>
   );
