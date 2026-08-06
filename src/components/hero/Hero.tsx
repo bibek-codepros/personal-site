@@ -2,17 +2,22 @@ import { FadeIn } from "@/components/animations/FadeIn";
 import { Button } from "@/components/buttons/Button";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
-import { DeskIllustration } from "@/components/story/DeskIllustration";
+import { NokiaPhoneIllustration } from "@/components/story/NokiaPhoneIllustration";
 import { Heading } from "@/components/typography/Heading";
 import { Paragraph } from "@/components/typography/Paragraph";
 
-const SUPPORTING_LINES = [
-  "This isn't a portfolio.",
-  "It isn't a résumé.",
-  "It's the story of curiosity, unexpected turns, quiet failures, meaningful people, and the journey that shaped who I am today.",
-  "If you're looking for my work, you'll find it.",
-  "But before that…",
-  "I'd love to tell you the story behind it.",
+/**
+ * Grouped rather than flattened — lines that belong to the same breath
+ * stay close together; a new thought earns a larger gap. This is a
+ * presentation-only structure: the copy itself is unchanged.
+ */
+const SUPPORTING_LINE_GROUPS = [
+  ["This isn't a portfolio.", "It isn't a résumé."],
+  [
+    "It's the story of curiosity, unexpected turns, quiet failures, meaningful people, and the journey that shaped who I am today.",
+  ],
+  ["If you're looking for my work, you'll find it.", "But before that…"],
+  ["I'd love to tell you the story behind it."],
 ];
 
 /** The front door. Philosophy before profession — curiosity, not credentials. */
@@ -39,7 +44,7 @@ export function Hero() {
                 A digital memoir by Bibek Sigdel
               </p>
 
-              <Heading variant="hero" as="h1" className="mt-6">
+              <Heading variant="hero" as="h1" className="mt-8">
                 Life didn&rsquo;t go the way I planned.
                 <br />
                 Looking back, I&rsquo;m glad it didn&rsquo;t.
@@ -50,12 +55,16 @@ export function Hero() {
               onScroll={false}
               duration={0.7}
               distance={16}
-              className="mt-10 space-y-4"
+              className="mt-12 space-y-7 md:mt-16"
             >
-              {SUPPORTING_LINES.map((line) => (
-                <Paragraph key={line} variant="lead" constrained={false}>
-                  {line}
-                </Paragraph>
+              {SUPPORTING_LINE_GROUPS.map((group) => (
+                <div key={group[0]} className="space-y-1.5">
+                  {group.map((line) => (
+                    <Paragraph key={line} variant="lead" constrained={false}>
+                      {line}
+                    </Paragraph>
+                  ))}
+                </div>
               ))}
             </FadeIn>
 
@@ -63,7 +72,7 @@ export function Hero() {
               onScroll={false}
               duration={0.9}
               distance={16}
-              className="mt-12 flex flex-col items-start gap-5 sm:flex-row sm:items-center"
+              className="mt-14 flex flex-col items-start gap-5 sm:flex-row sm:items-center md:mt-20"
             >
               <Button href="#quote" variant="primary" size="lg">
                 Walk with me →
@@ -81,7 +90,7 @@ export function Hero() {
             distance={16}
             className="hidden w-[320px] lg:block"
           >
-            <DeskIllustration />
+            <NokiaPhoneIllustration />
           </FadeIn>
         </div>
       </Container>

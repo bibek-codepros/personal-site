@@ -54,22 +54,6 @@ So I tried again.
 
 The second attempt followed almost the same path.
 
-Physical examination.
-
-Passed.
-
-IQ test.
-
-Passed.
-
-Written examination.
-
-Passed.
-
-The interview.
-
-Failed.
-
 I still wasn't ready to let go.
 
 So I prepared for a third time.

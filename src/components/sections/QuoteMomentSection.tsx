@@ -8,7 +8,7 @@ import { Section } from "@/components/layout/Section";
  */
 export function QuoteMomentSection() {
   return (
-    <Section id="quote" spacing="lg">
+    <Section id="quote" spacing="md" background="card">
       <Container>
         <FadeIn
           blur

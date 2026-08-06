@@ -73,12 +73,6 @@ I realised I wasn't simply returning knowledge.
 
 I was returning the opportunity someone once gave me.
 
-Some companies build products.
-
-Some quietly build people.
-
-I'm grateful mine did both.
-
 ---
 
 ### Continue Reading

@@ -52,6 +52,12 @@ export function StorySection({
   background = "transparent",
 }: StorySectionProps) {
   const hasVisual = Boolean(image || illustration);
+  /**
+   * A story told in fewer words (e.g. Window Seat) gets more room around
+   * those words rather than an added quote or intro to fill the space —
+   * brevity reads as a deliberate pause, not as unfinished.
+   */
+  const isCompact = !intro && !quote;
 
   return (
     <Section id={id} spacing="lg" background={background}>
@@ -82,7 +88,12 @@ export function StorySection({
               </Paragraph>
             )}
 
-            <div className="mt-8 space-y-8">
+            <div
+              className={cn(
+                "mt-8 space-y-8",
+                isCompact && "mt-10 space-y-10 md:mt-12 md:space-y-12"
+              )}
+            >
               {paragraphs.map((paragraph) => (
                 <Paragraph key={paragraph} constrained={false}>
                   {paragraph}
@@ -91,13 +102,17 @@ export function StorySection({
             </div>
 
             {quote && (
-              <QuoteBlock author={quote.author} className="mt-12">
+              <QuoteBlock author={quote.author} className="mt-14">
                 {quote.text}
               </QuoteBlock>
             )}
 
             {cta && (
-              <Button href={cta.href} variant="text" className="mt-10">
+              <Button
+                href={cta.href}
+                variant="text"
+                className={cn("mt-10", isCompact && "mt-14 md:mt-16")}
+              >
                 {cta.label}
               </Button>
             )}

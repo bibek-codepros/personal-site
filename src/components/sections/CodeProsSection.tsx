@@ -1,5 +1,5 @@
 import { StorySection } from "@/components/story/StorySection";
-import { WorkspaceIllustration } from "@/components/story/WorkspaceIllustration";
+import { QuietOfficeIllustration } from "@/components/story/QuietOfficeIllustration";
 
 /**
  * The emotional center of the homepage. Code Pros is never a client or an
@@ -25,8 +25,9 @@ export function CodeProsSection() {
         text: "Some opportunities don't simply change your career. They quietly change who you become.",
       }}
       cta={{ label: "Read this chapter →", href: "/becoming/the-place-that-believed-in-me" }}
-      illustration={<WorkspaceIllustration />}
+      illustration={<QuietOfficeIllustration />}
       imagePosition="right"
+      background="card"
     />
   );
 }

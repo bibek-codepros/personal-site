@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 const SPACING = {
   sm: "py-12 md:py-16",
   md: "py-16 md:py-24",
-  lg: "py-24 md:py-32",
+  lg: "py-28 md:py-36",
 } as const;
 
 const BACKGROUND = {

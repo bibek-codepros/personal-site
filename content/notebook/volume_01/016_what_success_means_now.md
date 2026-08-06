@@ -25,16 +25,6 @@ mood:
 
 If you had asked me ten years ago what success looked like, my answer would probably have involved a title, achievements or reaching a destination.
 
-Today, my answer is much simpler.
-
-Success is coming home and having dinner with my family.
-
-It's hearing laughter around the table.
-
-It's sharing stories from the day.
-
-It's knowing the people I love are healthy.
-
 For a long time, I believed success always lived somewhere in the future.
 
 Another goal.

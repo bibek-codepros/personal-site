@@ -60,8 +60,6 @@ Every small problem I solved quietly taught me something much bigger:
 
 That lesson stayed with me.
 
-Years later, when JavaScript looked impossible, when programming felt overwhelming, or when I became responsible for leading projects much bigger than myself, I noticed I was using the exact same mindset.
-
 Don't panic.
 
 Start somewhere.

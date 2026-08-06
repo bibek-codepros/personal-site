@@ -7,7 +7,6 @@ import { Signature } from "@/components/typography/Signature";
 const FOOTER_NAV = [
   { label: "Stories", href: "/becoming" },
   { label: "Notebook", href: "/notebook" },
-  { label: "Conversations", href: "/contact" },
   { label: "Today", href: "/#today" },
   { label: "Contact", href: "/contact" },
 ] as const;
@@ -20,13 +19,13 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-secondary">
       <Container>
-        <div className="py-20 md:py-24">
+        <div className="py-24 md:py-28">
           <div className="max-w-[560px]">
             <Heading variant="page" as="h2">
               Before You Leave
             </Heading>
 
-            <div className="mt-6 space-y-4">
+            <div className="mt-8 space-y-5">
               <p className="text-lg leading-[1.7] text-foreground">
                 Thank you for spending a little time here.
               </p>
@@ -48,10 +47,10 @@ export function Footer() {
               </p>
             </div>
 
-            <Signature size="sm" className="mt-6" />
+            <Signature size="sm" className="mt-8" />
           </div>
 
-          <nav aria-label="Footer" className="mt-14">
+          <nav aria-label="Footer" className="mt-16">
             <ul className="flex flex-wrap gap-x-8 gap-y-3">
               {FOOTER_NAV.map((item) => (
                 <li key={item.label}>
@@ -63,7 +62,7 @@ export function Footer() {
             </ul>
           </nav>
 
-          <p className="mt-14 text-xs text-muted-foreground">
+          <p className="mt-16 text-xs text-muted-foreground">
             © Bibek Sigdel. Built with curiosity. Still becoming.
           </p>
         </div>

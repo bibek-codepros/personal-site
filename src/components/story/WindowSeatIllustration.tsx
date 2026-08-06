@@ -1,17 +1,26 @@
 import { IllustrationFrame } from "@/components/shared/IllustrationFrame";
 
 /**
- * A minimal, monochrome line-art placeholder for the Window Seat section —
- * used until a real photograph replaces it. Per the design system,
- * illustration is only acceptable as a last resort, and only in this style.
- * The soft warm glow behind the linework is the "morning light" quality
- * Sprint 1.1 asked for — still monochrome iconography, no added color.
+ * A minimal, monochrome line-art symbol for Window Seat — not a generic
+ * "airplane window," but the specific memory the chapter lingers on: rain
+ * on the glass, a glimpse of the wing, clouds below, morning light coming
+ * from one side rather than glowing evenly. Every mark answers to a line
+ * in the text:
+ *
+ * - the rain streaks: "tiny droplets slowly raced each other across the
+ *   glass"
+ * - the wing, low in the frame: this was a wing-side seat
+ * - the clouds, further below: "watching clouds drift beneath us"
+ * - the diagonal light: morning, not midday — directional, not ambient
+ *
+ * Still monochrome, still a placeholder for a real photograph — just
+ * asked to mean something specific in the meantime.
  */
 export function WindowSeatIllustration() {
   return (
     <IllustrationFrame
-      label="Illustration of an airplane window looking out over soft clouds, lit by morning light"
-      className="bg-[radial-gradient(circle_at_50%_38%,_var(--card)_0%,_var(--secondary)_72%)]"
+      label="Illustration of an airplane window seat: rain on the glass, the wing just visible below, clouds further down, lit by morning light from one side"
+      className="bg-[linear-gradient(135deg,_var(--card)_0%,_var(--secondary)_85%)]"
     >
       <svg
         viewBox="0 0 200 240"
@@ -23,11 +32,22 @@ export function WindowSeatIllustration() {
         className="h-2/3 w-2/3 text-muted-foreground"
         aria-hidden="true"
       >
-        <rect x="30" y="16" width="140" height="180" rx="70" />
-        <rect x="46" y="32" width="108" height="148" rx="54" />
-        <line x1="46" y1="140" x2="154" y2="140" />
-        <path d="M64 158c6-10 14-10 20 0c6-10 14-10 20 0c6-10 14-10 20 0" />
-        <path d="M56 172c6-8 12-8 18 0c6-8 12-8 18 0c6-8 12-8 18 0c6-8 12-8 18 0" />
+        <rect x="34" y="20" width="132" height="170" rx="40" />
+        <rect x="50" y="36" width="100" height="138" rx="28" />
+        <line x1="50" y1="128" x2="150" y2="128" />
+        <path d="M50 136 L96 150 L150 136" opacity="0.8" strokeWidth="1.1" />
+        <path
+          d="M60 150c5-8 11-8 16 0c5-8 11-8 16 0c5-8 11-8 16 0c5-8 11-8 16 0"
+          opacity="0.75"
+        />
+        <path
+          d="M54 164c5-6 10-6 15 0c5-6 10-6 15 0c5-6 10-6 15 0c5-6 10-6 15 0c5-6 10-6 15 0"
+          opacity="0.4"
+        />
+        <path d="M72 44c3 7-2 11 1 18" opacity="0.55" strokeWidth="1" />
+        <path d="M92 40c2 8-3 13 0 22" opacity="0.55" strokeWidth="1" />
+        <path d="M112 46c3 6-2 10 1 16" opacity="0.55" strokeWidth="1" />
+        <path d="M132 38c2 9-3 14 0 24" opacity="0.55" strokeWidth="1" />
       </svg>
     </IllustrationFrame>
   );

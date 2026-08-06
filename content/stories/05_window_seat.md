@@ -272,41 +272,7 @@ My first Starbucks.
 
 The first time I stood beside the sea and let the waves touch my feet.
 
-The first time I tasted so many different kinds of fish.
-
-The first time I realized that Bali, despite being part of Indonesia, carried a deeply rooted Hindu culture that felt unexpectedly familiar.
-
-Some things surprised me.
-
-The drinking water tasted different.
-
-Finding milk tea became a small adventure because coffee was everywhere.
-
-Even the currency felt unbelievable.
-
-Exchanging five hundred dollars into millions of Indonesian Rupiah made me laugh more than once.
-
-For a few days, I felt like a millionaire.
-
-Only to discover that numbers don't always mean what they seem.
-
-Life has a sense of humour.
-
----
-
 One afternoon, we spent a surprisingly long time negotiating the price of slippers at Ubud Market.
-
-We celebrated what we thought was an excellent bargain.
-
-The next day, we found the same slippers somewhere else for almost one third of the price.
-
-We laughed until our stomachs hurt.
-
-Travel has a funny way of reminding us not to take ourselves too seriously.
-
-Some memories become precious not because they were perfect.
-
-But because they make us smile every time we remember them.
 
 ---
 

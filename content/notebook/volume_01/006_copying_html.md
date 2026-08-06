@@ -60,44 +60,6 @@ Why did changing one class suddenly move half the page?
 
 Why did everything break when I deleted one line?
 
-I learned the same way many curious people do.
-
-By breaking things.
-
-Then trying again.
-
-Eventually I stopped copying entire pages.
-
-I started understanding them.
-
-A line of HTML became a structure instead of random text.
-
-CSS slowly stopped feeling like magic.
-
-The browser became less mysterious.
-
-Sometimes I think people are too embarrassed to admit how they started.
-
-We imagine everyone else began as experts.
-
-Almost nobody does.
-
-Most of us begin by copying.
-
-Reading.
-
-Experimenting.
-
-Making mistakes that nobody remembers.
-
-What matters isn't how you begin.
-
-It's whether you keep going after those first awkward attempts.
-
-Because one day you'll look back...
-
-and realise that copied page quietly became the foundation of everything that followed.
-
 ---
 
 ### Continue Reading

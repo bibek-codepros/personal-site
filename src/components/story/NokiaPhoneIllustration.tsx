@@ -1,6 +1,11 @@
 import { IllustrationFrame } from "@/components/shared/IllustrationFrame";
 
-/** A minimal, monochrome line-art placeholder for "Where It All Began". */
+/**
+ * The old Nokia — where curiosity started, long before HTML or Code Pros.
+ * Shared between the Hero (the very first thing a visitor sees) and
+ * "Where It All Began" (the very first thing that happened), on purpose:
+ * the same object standing for the same origin, wherever it appears.
+ */
 export function NokiaPhoneIllustration() {
   return (
     <IllustrationFrame label="Illustration of a small candy-bar phone, like the one that started it all">

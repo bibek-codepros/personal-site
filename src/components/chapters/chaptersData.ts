@@ -1,11 +1,19 @@
-import { Coffee, Medal, Plane, Search, Sprout, Users, type LucideIcon } from "lucide-react";
+import type { ComponentType } from "react";
+
+import { ClosedDoorIllustration } from "@/components/story/ClosedDoorIllustration";
+import { DeskIllustration } from "@/components/story/DeskIllustration";
+import { HtmlBracketsIllustration } from "@/components/becoming/reading/illustrations/HtmlBracketsIllustration";
+import { NokiaPhoneIllustration } from "@/components/story/NokiaPhoneIllustration";
+import { QuietOfficeIllustration } from "@/components/story/QuietOfficeIllustration";
+import { WindowSeatIllustration } from "@/components/story/WindowSeatIllustration";
 
 export type HomeChapter = {
   number: string;
   title: string;
   description: string;
   href: string;
-  icon: LucideIcon;
+  /** One object, not an icon — the same symbol used wherever this memory appears. */
+  illustration: ComponentType;
 };
 
 export const HOME_CHAPTERS: HomeChapter[] = [
@@ -15,7 +23,7 @@ export const HOME_CHAPTERS: HomeChapter[] = [
     description:
       "Everything started with a Nokia phone, endless questions, and the simple desire to understand how things worked.",
     href: "/becoming/where-it-all-began",
-    icon: Search,
+    illustration: NokiaPhoneIllustration,
   },
   {
     number: "02",
@@ -23,7 +31,7 @@ export const HOME_CHAPTERS: HomeChapter[] = [
     description:
       "For years, I believed my future would wear an Army uniform. Life had another plan.",
     href: "/becoming/where-it-all-began",
-    icon: Medal,
+    illustration: ClosedDoorIllustration,
   },
   {
     number: "03",
@@ -31,7 +39,7 @@ export const HOME_CHAPTERS: HomeChapter[] = [
     description:
       "HTML wasn't where I expected to begin. It became the foundation of everything that followed.",
     href: "/becoming/starting-again",
-    icon: Sprout,
+    illustration: HtmlBracketsIllustration,
   },
   {
     number: "04",
@@ -39,7 +47,7 @@ export const HOME_CHAPTERS: HomeChapter[] = [
     description:
       "Some opportunities don't just change your career. They quietly change who you become.",
     href: "#code-pros",
-    icon: Users,
+    illustration: QuietOfficeIllustration,
   },
   {
     number: "05",
@@ -47,13 +55,13 @@ export const HOME_CHAPTERS: HomeChapter[] = [
     description:
       "Sometimes progress doesn't feel like success until you're looking back through the clouds.",
     href: "#window-seat",
-    icon: Plane,
+    illustration: WindowSeatIllustration,
   },
   {
     number: "06",
     title: "Still Becoming",
     description: "I'm not finished. Maybe none of us ever are.",
     href: "/becoming/still-becoming",
-    icon: Coffee,
+    illustration: DeskIllustration,
   },
 ];

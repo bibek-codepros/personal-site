@@ -7,7 +7,12 @@ import { Paragraph } from "@/components/typography/Paragraph";
 /** A short, present-tense pause. Never an ending — only where it is right now. */
 export function TodaySection() {
   return (
-    <Section id="today" spacing="lg" aria-labelledby="today-heading">
+    <Section
+      id="today"
+      spacing="md"
+      background="card"
+      aria-labelledby="today-heading"
+    >
       <Container>
         <div className="max-w-[720px] space-y-6">
           <FadeIn>

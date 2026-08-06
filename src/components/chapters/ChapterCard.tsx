@@ -6,13 +6,17 @@ import type { HomeChapter } from "./chaptersData";
 
 type ChapterCardProps = HomeChapter;
 
-/** A chapter in a book, not a milestone — the whole card is the link. */
+/**
+ * A chapter in a book, not a milestone — the whole card is the link.
+ * Each one leads with its own object rather than a generic icon, so the
+ * six cards read as six specific memories, not six feature tiles.
+ */
 export function ChapterCard({
   number,
   title,
   description,
   href,
-  icon: Icon,
+  illustration: Illustration,
 }: ChapterCardProps) {
   return (
     <StaggerItem as="li" className="list-none">
@@ -20,17 +24,13 @@ export function ChapterCard({
         href={href}
         className="group block rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
       >
-        <div className="flex items-center gap-3">
-          <p className="font-mono text-xs tracking-wide text-muted-foreground uppercase">
-            Chapter {number}
-          </p>
-          <Icon
-            aria-hidden="true"
-            strokeWidth={2}
-            className="size-4 text-muted-foreground"
-          />
+        <div className="max-w-[190px] transition-transform duration-200 motion-safe:group-hover:-translate-y-1">
+          <Illustration />
         </div>
-        <h3 className="mt-2 font-heading text-2xl text-foreground transition-transform duration-200 motion-safe:group-hover:-translate-y-1">
+        <p className="mt-5 font-mono text-xs tracking-wide text-muted-foreground uppercase">
+          Chapter {number}
+        </p>
+        <h3 className="mt-2 font-heading text-2xl text-foreground">
           {title}
         </h3>
         <p className="mt-3 max-w-[320px] text-base leading-relaxed text-muted-foreground">

@@ -47,20 +47,6 @@ Sometimes I broke things.
 
 And sometimes I learned something that stayed with me for years.
 
-That habit followed me into my career.
-
-When I first entered web development, there were countless moments where I had absolutely no idea what I was looking at.
-
-Instead of walking away, I'd open another browser tab.
-
-Read another article.
-
-Watch another video.
-
-Try another solution.
-
-Curiosity slowly became my greatest teacher.
-
 Looking back, I don't think the people who grow the fastest are always the smartest.
 
 They're often the ones who stay curious for a little longer than everyone else.

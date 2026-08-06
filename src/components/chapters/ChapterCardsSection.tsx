@@ -24,7 +24,7 @@ export function ChapterCardsSection() {
 
         <StaggerGroup
           as="ul"
-          className="mt-16 grid grid-cols-1 gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-20 grid grid-cols-1 gap-x-10 gap-y-16 sm:grid-cols-2 md:mt-24 lg:grid-cols-3"
         >
           {HOME_CHAPTERS.map((chapter) => (
             <ChapterCard key={chapter.number} {...chapter} />
