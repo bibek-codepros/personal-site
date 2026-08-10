@@ -1,6 +1,9 @@
 import { IllustrationFrame } from "@/components/shared/IllustrationFrame";
 
-/** A minimal, monochrome line-art placeholder for "Leading Beyond Code". */
+/**
+ * A minimal, monochrome line-art placeholder for "Leading Beyond Code".
+ * Motion: static memory. No movement — a compass held still, not spinning.
+ */
 export function CompassIllustration() {
   return (
     <IllustrationFrame label="Illustration of a compass, representing quiet direction rather than standing in front">

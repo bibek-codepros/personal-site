@@ -3,13 +3,16 @@ import Link from "next/link";
 
 import { BecomingEntry } from "@/components/becoming/reading/BecomingEntry";
 import { CHAPTERS_META } from "@/content/chaptersMeta";
+import { pageMetadata } from "@/lib/site";
 
+const title = "Becoming | Bibek Sigdel";
 const description =
   "None of us become who we are overnight. This is the story of how I slowly became the person I'm still becoming.";
 
 export const metadata: Metadata = {
-  title: "Becoming | Bibek Sigdel",
+  title,
   description,
+  ...pageMetadata({ title, description, path: "/becoming" }),
 };
 
 export default function BecomingRootPage() {

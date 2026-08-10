@@ -165,3 +165,31 @@
     animation: none;
   }
 }
+
+/*
+ * Window Seat's rain — the one piece of "environmental detail" motion in
+ * HOME's illustrations (per the Static / Living / Environmental
+ * classification). Each streak breathes very slightly in opacity, long
+ * duration, so it registers as "something is happening here" rather than
+ * as a visible effect. Position never changes — only opacity — so this
+ * can never cause layout shift.
+ */
+@keyframes rain-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.rain-streak {
+  animation: rain-breathe 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rain-streak {
+    animation: none;
+  }
+}

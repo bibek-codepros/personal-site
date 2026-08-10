@@ -7,20 +7,27 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { Section } from "@/components/layout/Section";
 import { Paragraph } from "@/components/typography/Paragraph";
 import { Signature } from "@/components/typography/Signature";
+import { pageMetadata } from "@/lib/site";
 
+const title = "Let's Have Coffee | Bibek Sigdel";
 const description =
   "I genuinely believe every person is carrying a story. Some have simply never had the chance to tell it.";
 
 export const metadata: Metadata = {
-  title: "Let's Have Coffee | Bibek Sigdel",
+  title,
   description,
+  ...pageMetadata({ title, description, path: "/contact" }),
 };
 
 /** Not a contact form. An invitation, in the same voice as the rest of HOME. */
 export default function ContactPage() {
   return (
     <>
-      <PageHeader title="Let&rsquo;s Have Coffee" description={description} />
+      <PageHeader
+        title="Let&rsquo;s Have Coffee"
+        description={description}
+        current="contact"
+      />
 
       <Section spacing="md">
         <Container>

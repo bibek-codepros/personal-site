@@ -6,6 +6,8 @@ import { IllustrationFrame } from "@/components/shared/IllustrationFrame";
  * literal military imagery. Answers to Bibek's own line about that
  * chapter: "Life wasn't closing a door. It was simply refusing to let me
  * enter the wrong one."
+ *
+ * Motion: static memory. No movement — the light is fixed, not glowing.
  */
 export function ClosedDoorIllustration() {
   return (

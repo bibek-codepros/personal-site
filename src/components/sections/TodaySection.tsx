@@ -1,4 +1,5 @@
 import { FadeIn } from "@/components/animations/FadeIn";
+import { MOTION } from "@/components/animations/variants";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { Heading } from "@/components/typography/Heading";
@@ -15,7 +16,7 @@ export function TodaySection() {
     >
       <Container>
         <div className="max-w-[720px] space-y-6">
-          <FadeIn>
+          <FadeIn distance={MOTION.whisper.distance} duration={MOTION.whisper.duration}>
             <Heading id="today-heading" variant="section">
               Today
             </Heading>

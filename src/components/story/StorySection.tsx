@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 import { FadeIn } from "@/components/animations/FadeIn";
-import { DURATION } from "@/components/animations/variants";
+import { DURATION, MOTION } from "@/components/animations/variants";
 import { Button } from "@/components/buttons/Button";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
@@ -69,6 +69,8 @@ export function StorySection({
           )}
         >
           <FadeIn
+            distance={MOTION.land.distance}
+            duration={MOTION.land.duration}
             className={cn(
               "max-w-[720px]",
               hasVisual && imagePosition === "left" && "lg:order-2"

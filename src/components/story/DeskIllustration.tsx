@@ -4,6 +4,8 @@ import { IllustrationFrame } from "@/components/shared/IllustrationFrame";
  * A minimal, monochrome line-art placeholder for the Current Chapter
  * section — an open notebook, a pen, a cup of coffee. Used until a real
  * photograph replaces it.
+ *
+ * Motion: static memory. No movement.
  */
 export function DeskIllustration() {
   return (

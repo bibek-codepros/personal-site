@@ -1,15 +1,22 @@
 import Link from "next/link";
 
 import { StaggerItem } from "@/components/animations/StaggerGroup";
+import { IllustrationFrame } from "@/components/shared/IllustrationFrame";
+import { cn } from "@/lib/utils";
 
 import type { HomeChapter } from "./chaptersData";
 
-type ChapterCardProps = HomeChapter;
+type ChapterCardProps = HomeChapter & { className?: string };
 
 /**
  * A chapter in a book, not a milestone — the whole card is the link.
  * Each one leads with its own object rather than a generic icon, so the
  * six cards read as six specific memories, not six feature tiles.
+ *
+ * One hover interaction only, deliberately — the quiet "Read →" reveal.
+ * The illustration itself no longer lifts on hover; a spatial lift reads
+ * closer to a generic UI card than to touching an old object, and every
+ * card (including Chapter 07) shares this exact same, single behavior.
  */
 export function ChapterCard({
   number,
@@ -17,15 +24,16 @@ export function ChapterCard({
   description,
   href,
   illustration: Illustration,
+  className,
 }: ChapterCardProps) {
   return (
-    <StaggerItem as="li" className="list-none">
+    <StaggerItem as="li" className={cn("list-none", className)}>
       <Link
         href={href}
         className="group block rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
       >
-        <div className="max-w-[190px] transition-transform duration-200 motion-safe:group-hover:-translate-y-1">
-          <Illustration />
+        <div className="max-w-[190px]">
+          {Illustration ? <Illustration /> : <IllustrationFrame />}
         </div>
         <p className="mt-5 font-mono text-xs tracking-wide text-muted-foreground uppercase">
           Chapter {number}

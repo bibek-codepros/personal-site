@@ -5,32 +5,41 @@ import type { ChapterMeta } from "@/content/chaptersMeta";
 
 import { ChapterNavigation } from "./ChapterNavigation";
 
-const CHAPTER_WORDS = ["One", "Two", "Three", "Four", "Five", "Six"];
+const CHAPTER_WORDS = ["One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
 
 type ChapterEndingProps = {
   current: ChapterMeta;
   next?: ChapterMeta;
 };
 
-/** The ending should feel slower than the beginning — never abrupt. */
+/**
+ * The ending should feel slower than the beginning — never abrupt.
+ *
+ * Two independent things decide what shows here — whether a chapter is
+ * the true final one (`isFinalChapter`, purely from whether a `next`
+ * exists — never hardcoded to a slug, so this stays correct through any
+ * future reorder), and whether a chapter's own words already did the
+ * emotional work well enough that site chrome would undercut them
+ * (`hasOwnClosingWords`):
+ *
+ * - "Still Becoming" closes with its own goodbye ("Welcome to HOME," "The
+ *   coffee is on me") — and is also HOME's true final chapter, so it gets
+ *   neither the "you have reached the end" text nor a next-chapter button.
+ * - "Room, Kitchen, Bathroom" ends on "She bathed me. / She stayed. /
+ *   (I'm crying, writing this.)" — its own words, just as final-feeling,
+ *   even though the site continues past it into Window Seat. It skips the
+ *   "reached the end" text like Still Becoming does, but — unlike Still
+ *   Becoming — still gets the quiet way into the next chapter, since it
+ *   isn't actually HOME's last one.
+ */
 export function ChapterEnding({ current, next }: ChapterEndingProps) {
   const isFinalChapter = !next;
+  const hasOwnClosingWords =
+    current.slug === "still-becoming" || current.slug === "room-kitchen-bathroom";
 
   return (
     <FadeIn duration={0.6} className="mt-20 flex flex-col items-center gap-10 text-center">
-      {isFinalChapter ? (
-        <div className="space-y-3">
-          <p className="font-heading text-2xl text-foreground italic">
-            You have reached the end.
-          </p>
-          <p className="text-lg text-muted-foreground">
-            But not the end of the journey.
-          </p>
-          <p className="text-lg text-muted-foreground">
-            Thank you for spending time inside HOME.
-          </p>
-        </div>
-      ) : (
+      {!isFinalChapter && !hasOwnClosingWords && (
         <div className="space-y-3">
           <p className="text-lg text-foreground">
             You have reached the end of Chapter {CHAPTER_WORDS[current.number - 1]}.
@@ -44,19 +53,7 @@ export function ChapterEnding({ current, next }: ChapterEndingProps) {
 
       <ChapterNavigation currentNumber={current.number} />
 
-      {isFinalChapter ? (
-        <div className="flex flex-col items-center gap-4 sm:flex-row">
-          <Button href="/" variant="primary" size="lg">
-            Return Home
-          </Button>
-          <Button href="/notebook" variant="secondary" size="lg">
-            Visit Notebook
-          </Button>
-          <Button href="/contact" variant="text" size="lg">
-            Start a Conversation
-          </Button>
-        </div>
-      ) : (
+      {!isFinalChapter && (
         <Button href={`/becoming/${next.slug}`} variant="primary" size="lg">
           Open Chapter {CHAPTER_WORDS[next.number - 1]} →
         </Button>

@@ -1,6 +1,9 @@
 import { IllustrationFrame } from "@/components/shared/IllustrationFrame";
 
-/** A minimal, monochrome line-art placeholder for "Starting Again". */
+/**
+ * A minimal, monochrome line-art placeholder for "Starting Again".
+ * Motion: static memory. No movement.
+ */
 export function HtmlBracketsIllustration() {
   return (
     <IllustrationFrame label="Illustration of HTML angle brackets, the foundation everything else was built on">

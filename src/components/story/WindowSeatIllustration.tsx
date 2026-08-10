@@ -15,6 +15,14 @@ import { IllustrationFrame } from "@/components/shared/IllustrationFrame";
  *
  * Still monochrome, still a placeholder for a real photograph — just
  * asked to mean something specific in the meantime.
+ *
+ * The rain streaks carry HOME's one piece of "environmental detail"
+ * motion (see globals.css's `.rain-streak`): an extremely slow, staggered
+ * opacity breathe, never position. It should not register as "this is
+ * animated" — only as a faint sense that something is still happening.
+ * Everything else here — the window, the wing, the clouds — stays fully
+ * static; per the illustration's own object should feel physically
+ * present, not alive.
  */
 export function WindowSeatIllustration() {
   return (
@@ -44,10 +52,34 @@ export function WindowSeatIllustration() {
           d="M54 164c5-6 10-6 15 0c5-6 10-6 15 0c5-6 10-6 15 0c5-6 10-6 15 0c5-6 10-6 15 0"
           opacity="0.4"
         />
-        <path d="M72 44c3 7-2 11 1 18" opacity="0.55" strokeWidth="1" />
-        <path d="M92 40c2 8-3 13 0 22" opacity="0.55" strokeWidth="1" />
-        <path d="M112 46c3 6-2 10 1 16" opacity="0.55" strokeWidth="1" />
-        <path d="M132 38c2 9-3 14 0 24" opacity="0.55" strokeWidth="1" />
+        <path
+          d="M72 44c3 7-2 11 1 18"
+          opacity="0.55"
+          strokeWidth="1"
+          className="rain-streak"
+          style={{ animationDelay: "0s" }}
+        />
+        <path
+          d="M92 40c2 8-3 13 0 22"
+          opacity="0.55"
+          strokeWidth="1"
+          className="rain-streak"
+          style={{ animationDelay: "1.5s" }}
+        />
+        <path
+          d="M112 46c3 6-2 10 1 16"
+          opacity="0.55"
+          strokeWidth="1"
+          className="rain-streak"
+          style={{ animationDelay: "3s" }}
+        />
+        <path
+          d="M132 38c2 9-3 14 0 24"
+          opacity="0.55"
+          strokeWidth="1"
+          className="rain-streak"
+          style={{ animationDelay: "4.5s" }}
+        />
       </svg>
     </IllustrationFrame>
   );

@@ -1,8 +1,10 @@
 "use client";
 
-import { m, useReducedMotion } from "framer-motion";
+import { m } from "framer-motion";
 import type { ReactNode } from "react";
 
+import { useCappedViewportAmount } from "./useCappedViewportAmount";
+import { useSafeReducedMotion } from "./useSafeReducedMotion";
 import { blurFadeUp, DURATION, SECTION_VIEWPORT_AMOUNT, fadeUp } from "./variants";
 
 /**
@@ -57,7 +59,8 @@ export function FadeIn({
   blur = false,
   ...rest
 }: FadeInProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useSafeReducedMotion();
+  const { amount, measureRef } = useCappedViewportAmount(SECTION_VIEWPORT_AMOUNT);
   const variants = shouldReduceMotion
     ? fadeUp(0, 0, 0)
     : blur
@@ -67,13 +70,14 @@ export function FadeIn({
 
   return (
     <MotionTag
+      ref={measureRef}
       className={className}
       initial="hidden"
       variants={variants}
       {...(onScroll
         ? {
             whileInView: "visible",
-            viewport: { once: true, amount: SECTION_VIEWPORT_AMOUNT },
+            viewport: { once: true, amount },
           }
         : { animate: "visible" })}
       {...rest}

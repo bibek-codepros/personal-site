@@ -1,25 +1,23 @@
-import Link from "next/link";
-
 import { FadeIn } from "@/components/animations/FadeIn";
+import { QuietNav } from "@/components/layout/QuietNav";
 import { Divider } from "@/components/shared/Divider";
 
 import type { Note, Volume } from "@/lib/notebook";
 
 const STAGGER = 0.1;
 
-/** Every note opens the same quiet way — a link back to the Notebook,
- *  a category eyebrow, the title, then chapter/volume/reading-time. */
+/** Every note opens the same quiet way — a way back to Home or the
+ *  Notebook, a category eyebrow, the title, then chapter/volume/reading-time.
+ *  Unlike every other QuietNav usage, `current` is deliberately left unset
+ *  here: a note is several clicks deep into the Notebook, not standing on
+ *  its index, so "Notebook" should stay a real link back to it rather than
+ *  render as unclickable "you are here" text. */
 export function NoteHeader({ note, volume }: { note: Note; volume: Volume }) {
   return (
     <header>
       <FadeIn onScroll={false} distance={12} delay={STAGGER * 0}>
-        <Link
-          href="/notebook"
-          className="rounded-sm text-xs font-medium tracking-[0.15em] text-muted-foreground uppercase transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-        >
-          Notebook
-        </Link>
-        <p className="mt-1 text-xs font-medium tracking-wide text-muted-foreground uppercase">
+        <QuietNav />
+        <p className="mt-3 text-xs font-medium tracking-wide text-muted-foreground uppercase">
           {note.category}
         </p>
       </FadeIn>
@@ -37,10 +35,7 @@ export function NoteHeader({ note, volume }: { note: Note; volume: Volume }) {
         className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground"
       >
         <span>Volume {String(volume.number).padStart(2, "0")}</span>
-        <span>
-          · Chapter {String(note.chapter).padStart(2, "0")} of{" "}
-          {String(volume.notes.length).padStart(2, "0")}
-        </span>
+        <span>· Note {String(note.chapter).padStart(2, "0")}</span>
         {note.readingTime && <span>· {note.readingTime}</span>}
       </FadeIn>
 

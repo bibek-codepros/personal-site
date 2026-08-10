@@ -5,6 +5,8 @@ import { IllustrationFrame } from "@/components/shared/IllustrationFrame";
  * Shared between the Hero (the very first thing a visitor sees) and
  * "Where It All Began" (the very first thing that happened), on purpose:
  * the same object standing for the same origin, wherever it appears.
+ *
+ * Motion: static memory. No movement — an artifact, not a scene.
  */
 export function NokiaPhoneIllustration() {
   return (

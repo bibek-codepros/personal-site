@@ -26,9 +26,26 @@ export function ChapterCardsSection() {
           as="ul"
           className="mt-20 grid grid-cols-1 gap-x-10 gap-y-16 sm:grid-cols-2 md:mt-24 lg:grid-cols-3"
         >
-          {HOME_CHAPTERS.map((chapter) => (
-            <ChapterCard key={chapter.number} {...chapter} />
-          ))}
+          {HOME_CHAPTERS.map((chapter, index) => {
+            // A chapter count that doesn't divide evenly leaves one card
+            // alone on the last row — center it there instead of letting
+            // it strand itself on the left like a broken grid.
+            const isTrailingOrphan =
+              index === HOME_CHAPTERS.length - 1 &&
+              HOME_CHAPTERS.length % 3 !== 0 &&
+              HOME_CHAPTERS.length % 2 !== 0;
+            return (
+              <ChapterCard
+                key={chapter.number}
+                {...chapter}
+                className={
+                  isTrailingOrphan
+                    ? "sm:col-span-2 sm:max-w-[280px] sm:mx-auto lg:col-span-3"
+                    : undefined
+                }
+              />
+            );
+          })}
         </StaggerGroup>
       </Container>
     </Section>

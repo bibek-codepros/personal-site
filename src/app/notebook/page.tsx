@@ -2,15 +2,20 @@ import type { Metadata } from "next";
 
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
-import { ChapterList } from "@/components/notebook/ChapterList";
 import { EmptyState } from "@/components/notebook/EmptyState";
+import { NoteList } from "@/components/notebook/NoteList";
 import { VolumeHero } from "@/components/notebook/VolumeHero";
 import { getAllVolumes } from "@/lib/notebook";
+import { pageMetadata } from "@/lib/site";
+
+const title = "Notebook | Bibek Sigdel";
+const description =
+  "The Notebook — small memories, honestly written. Not a blog. A collection of the moments that quietly shaped a life.";
 
 export const metadata: Metadata = {
-  title: "Notebook | Bibek Sigdel",
-  description:
-    "The Notebook — small memories, honestly written. Not a blog. A collection of the moments that quietly shaped a life.",
+  title,
+  description,
+  ...pageMetadata({ title, description, path: "/notebook" }),
 };
 
 export default function NotebookPage() {
@@ -29,7 +34,7 @@ export default function NotebookPage() {
   return (
     <>
       <VolumeHero volume={volume} />
-      <ChapterList volume={volume} />
+      <NoteList volume={volume} />
     </>
   );
 }

@@ -1,8 +1,10 @@
 "use client";
 
-import { m, useReducedMotion } from "framer-motion";
+import { m } from "framer-motion";
 import type { ReactNode } from "react";
 
+import { useCappedViewportAmount } from "./useCappedViewportAmount";
+import { useSafeReducedMotion } from "./useSafeReducedMotion";
 import {
   DURATION,
   SECTION_VIEWPORT_AMOUNT,
@@ -42,7 +44,8 @@ export function StaggerGroup({
   as = "div",
   stagger = STAGGER_CHILD,
 }: StaggerGroupProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useSafeReducedMotion();
+  const { amount, measureRef } = useCappedViewportAmount(SECTION_VIEWPORT_AMOUNT);
   const MotionTag = MOTION_TAG[as];
 
   // Reduced motion: children become visible immediately, never gated
@@ -51,11 +54,12 @@ export function StaggerGroup({
     ? { animate: "visible" as const }
     : {
         whileInView: "visible" as const,
-        viewport: { once: true, amount: SECTION_VIEWPORT_AMOUNT },
+        viewport: { once: true, amount },
       };
 
   return (
     <MotionTag
+      ref={measureRef}
       className={className}
       initial="hidden"
       variants={staggerContainer(shouldReduceMotion ? 0 : stagger)}
@@ -79,7 +83,7 @@ export function StaggerItem({
   as = "div",
   distance = 24,
 }: StaggerItemProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useSafeReducedMotion();
   const MotionTag = MOTION_TAG[as];
 
   return (

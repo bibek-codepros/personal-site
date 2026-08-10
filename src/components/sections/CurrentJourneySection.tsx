@@ -1,4 +1,5 @@
 import { FadeIn } from "@/components/animations/FadeIn";
+import { MOTION } from "@/components/animations/variants";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { Heading } from "@/components/typography/Heading";
@@ -54,7 +55,7 @@ export function CurrentJourneySection() {
     >
       <Container>
         <div className="max-w-[720px]">
-          <FadeIn>
+          <FadeIn distance={MOTION.pause.distance} duration={MOTION.pause.duration}>
             <Heading id="current-journey-heading" variant="section">
               What I&rsquo;m Building Today
             </Heading>
@@ -65,7 +66,11 @@ export function CurrentJourneySection() {
           </FadeIn>
         </div>
 
-        <FadeIn className="mt-20 grid grid-cols-1 gap-x-16 gap-y-16 md:mt-24 md:grid-cols-2">
+        <FadeIn
+          distance={MOTION.pause.distance}
+          duration={MOTION.pause.duration}
+          className="mt-20 grid grid-cols-1 gap-x-16 gap-y-16 md:mt-24 md:grid-cols-2"
+        >
           {VALUES.map((value) => (
             <HighlightArea
               key={value.title}

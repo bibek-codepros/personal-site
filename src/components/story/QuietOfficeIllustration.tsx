@@ -7,6 +7,10 @@ import { IllustrationFrame } from "@/components/shared/IllustrationFrame";
  * a monitor still glowing, a mug and a notebook within reach, the rest of
  * the room left in shadow. Shared between the homepage, the chapter card,
  * and the full chapter — the same desk, wherever it appears.
+ *
+ * Motion: static memory. The lamp and monitor read as "on" through the
+ * warm gradient behind them, not through any glow animation — no
+ * movement anywhere in this one.
  */
 export function QuietOfficeIllustration() {
   return (

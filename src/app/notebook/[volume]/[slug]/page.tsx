@@ -11,6 +11,7 @@ import {
   getNoteBySlug,
   getVolumeBySlug,
 } from "@/lib/notebook";
+import { pageMetadata } from "@/lib/site";
 
 type NotePageProps = {
   params: Promise<{ volume: string; slug: string }>;
@@ -25,8 +26,15 @@ export async function generateMetadata({ params }: NotePageProps): Promise<Metad
   const note = getNoteBySlug(volumeSlug, slug);
   if (!note) return {};
 
+  const title = `${note.title} — Notebook | Bibek Sigdel`;
+  // No note currently has its own excerpt or description in frontmatter,
+  // so the title is the only existing text honest to fall back to here.
+  const description = note.title;
+
   return {
-    title: `${note.title} — Notebook | Bibek Sigdel`,
+    title,
+    description,
+    ...pageMetadata({ title, description, path: `/notebook/${volumeSlug}/${slug}` }),
   };
 }
 

@@ -7,13 +7,21 @@ import { Section } from "@/components/layout/Section";
 import type { Volume } from "@/lib/notebook";
 
 /** A table of contents, not a card grid — per "Then display all chapters
- *  beautifully. Think of Kindle. Apple Books. Medium. Not Notion." */
-export function ChapterList({ volume }: { volume: Volume }) {
+ *  beautifully. Think of Kindle. Apple Books. Medium. Not Notion." Centered
+ *  at the same 680px width as Becoming's reading column, matching it
+ *  exactly rather than the wider default Container size — otherwise this
+ *  list and VolumeHero above it drift out of alignment at wide viewports. */
+export function NoteList({ volume }: { volume: Volume }) {
   return (
     <Section spacing="md">
-      <Container size="md">
-        <h2 className="font-heading text-2xl text-foreground">Contents</h2>
-        <StaggerGroup as="ol" className="mt-8 divide-y divide-border">
+      <Container>
+        <h2 className="mx-auto max-w-[680px] font-heading text-2xl text-foreground">
+          Contents
+        </h2>
+        <StaggerGroup
+          as="ol"
+          className="mx-auto mt-8 max-w-[680px] divide-y divide-border"
+        >
           {volume.notes.map((note) => (
             <StaggerItem as="li" key={note.slug} className="list-none">
               <Link

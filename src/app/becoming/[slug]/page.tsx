@@ -12,6 +12,7 @@ import { RunningHeader } from "@/components/becoming/reading/RunningHeader";
 import { StoryRenderer, type MemoryInjection } from "@/components/becoming/reading/StoryRenderer";
 import { SupportingDetails } from "@/components/becoming/reading/SupportingDetail";
 import { getAdjacentChapters } from "@/content/chaptersMeta";
+import { pageMetadata } from "@/lib/site";
 import { getChapterBySlug, getChapterSlugs } from "@/lib/stories";
 
 type ChapterPageProps = {
@@ -27,9 +28,13 @@ export async function generateMetadata({ params }: ChapterPageProps): Promise<Me
   const chapter = getChapterBySlug(slug);
   if (!chapter) return {};
 
+  const title = `${chapter.title} — Becoming | Bibek Sigdel`;
+  const description = chapter.subtitle;
+
   return {
-    title: `${chapter.title} — Becoming | Bibek Sigdel`,
-    description: chapter.subtitle,
+    title,
+    description,
+    ...pageMetadata({ title, description, path: `/becoming/${chapter.slug}` }),
   };
 }
 
@@ -39,18 +44,24 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
   if (!chapter) notFound();
 
   const { next } = getAdjacentChapters(chapter.number);
-  const Illustration = ILLUSTRATIONS[chapter.illustrationKey];
+  const Illustration = chapter.illustrationKey ? ILLUSTRATIONS[chapter.illustrationKey] : undefined;
 
-  // Chapter 1 needs two things anchored to its two distinct memories; every
-  // other illustrated chapter anchors its one illustration to its one
-  // memory block. Chapters without a memory block fall back to the end.
-  const injections: MemoryInjection[] =
-    chapter.slug === "where-it-all-began"
-      ? [
-          { afterMemoryIndex: 0, element: <Illustration /> },
-          { afterMemoryIndex: 1, element: <ArmyJourneyCallout {...chapter.armyJourneyCallout!} /> },
-        ]
-      : [{ afterMemoryIndex: 0, element: <Illustration /> }];
+  // Every chapter now has at most one memory block, so its illustration
+  // (if it has one) and its Army-journey callout (only "The Dream" has
+  // one) both anchor to that same, single memory. Chapters with neither —
+  // a chapter can genuinely have no illustration, per HOME's "specific
+  // memory over generic icon" rule — render nothing here at all.
+  const memoryVisual =
+    Illustration || chapter.armyJourneyCallout ? (
+      <>
+        {Illustration && <Illustration />}
+        {chapter.armyJourneyCallout && <ArmyJourneyCallout {...chapter.armyJourneyCallout} />}
+      </>
+    ) : undefined;
+
+  const injections: MemoryInjection[] = memoryVisual
+    ? [{ afterMemoryIndex: 0, element: memoryVisual }]
+    : [];
 
   return (
     <ReadingLayout backgroundTint={chapter.backgroundTint}>
@@ -70,7 +81,7 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
         <StoryRenderer
           segments={chapter.bodySegments}
           injections={injections}
-          fallbackVisual={<Illustration />}
+          fallbackVisual={memoryVisual}
         />
       </div>
 

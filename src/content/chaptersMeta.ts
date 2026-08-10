@@ -39,6 +39,16 @@ export type SupportingDetail = {
   label: string;
 };
 
+export type IllustrationKey =
+  | "nokia"
+  | "closedDoor"
+  | "html"
+  | "workspace"
+  | "compass"
+  | "windowSeat"
+  | "desk"
+  | "room";
+
 export type ChapterMeta = {
   slug: string;
   filename: string;
@@ -47,7 +57,9 @@ export type ChapterMeta = {
   /** The emotional question this chapter answers — used as its subtitle. */
   subtitle: string;
   backgroundTint: string;
-  illustrationKey: "nokia" | "html" | "workspace" | "compass" | "windowSeat" | "desk";
+  /** Omitted entirely where no existing illustration fits — never a
+   *  placeholder or an invented symbol just to fill the slot. */
+  illustrationKey?: IllustrationKey;
   memoryBlocks?: MemoryBlockConfig[];
   /** One verbatim, self-contained sentence — the chapter's pull quote. */
   pullQuote?: TextRange;
@@ -70,6 +82,21 @@ export const CHAPTERS_META: ChapterMeta[] = [
         startMarker: "When I was around twelve years old, my mother owned a small Nokia phone.",
         endMarker: "To me, it was something waiting to be explored.",
       },
+    ],
+  },
+  {
+    // New chapter, split out of "Where It All Began" in Phase 12 — the
+    // Army-dream material was always its own conceptual arc; it now has
+    // its own page. Subtitle is newly authored (app-layer metadata, like
+    // every other chapter's subtitle already is) — not manuscript prose.
+    slug: "the-dream",
+    filename: "02_the_dream.md",
+    number: 2,
+    title: "The Dream",
+    subtitle: "What happens when a dream doesn't choose you back?",
+    backgroundTint: "#f8f6f2",
+    illustrationKey: "closedDoor",
+    memoryBlocks: [
       {
         title: "Three Attempts",
         startMarker: "Three attempts.",
@@ -94,8 +121,8 @@ export const CHAPTERS_META: ChapterMeta[] = [
   },
   {
     slug: "starting-again",
-    filename: "02_starting_again.md",
-    number: 2,
+    filename: "03_starting_again.md",
+    number: 3,
     title: "Starting Again",
     subtitle: "What happened when the original dream ended?",
     backgroundTint: "#f7f8f3",
@@ -115,8 +142,8 @@ export const CHAPTERS_META: ChapterMeta[] = [
   },
   {
     slug: "the-place-that-believed-in-me",
-    filename: "03_the_place_that_believed_in_me.md",
-    number: 3,
+    filename: "04_the_place_that_believed_in_me.md",
+    number: 4,
     title: "The Place That Believed In Me",
     subtitle: "Who believed in me before I believed in myself?",
     backgroundTint: "#f6f6f5",
@@ -136,8 +163,8 @@ export const CHAPTERS_META: ChapterMeta[] = [
   },
   {
     slug: "leading-beyond-code",
-    filename: "04_leading_beyond_code.md",
-    number: 4,
+    filename: "05_leading_beyond_code.md",
+    number: 5,
     title: "Leading Beyond Code",
     subtitle: "What does leadership actually mean?",
     backgroundTint: "#f5f7f8",
@@ -148,9 +175,32 @@ export const CHAPTERS_META: ChapterMeta[] = [
     },
   },
   {
+    // New chapter (Phase 12) — the first half of the former single ACL
+    // chapter, split at its existing "One flight of stairs." divider.
+    // Deliberately has no illustrationKey: no existing illustration
+    // depicts a hospital or surgery, and Phase 12 explicitly forbids
+    // inventing one. Subtitle newly authored, same basis as "The Dream"'s.
+    slug: "no-room-for-me",
+    filename: "06_no_room_for_me.md",
+    number: 6,
+    title: "No Room For Me",
+    subtitle: "What do you fear when the fear changes shape?",
+    backgroundTint: "#f5f4f2",
+  },
+  {
+    // Second half of the former single ACL chapter (Phase 12 split).
+    slug: "room-kitchen-bathroom",
+    filename: "07_room_kitchen_bathroom.md",
+    number: 7,
+    title: "Room, Kitchen, Bathroom",
+    subtitle: "How small can a world become?",
+    backgroundTint: "#f6f6f4",
+    illustrationKey: "room",
+  },
+  {
     slug: "window-seat",
-    filename: "05_window_seat.md",
-    number: 5,
+    filename: "08_window_seat.md",
+    number: 8,
     title: "Window Seat",
     subtitle: "When did life begin making sense?",
     backgroundTint: "#f6f8fa",
@@ -175,8 +225,8 @@ export const CHAPTERS_META: ChapterMeta[] = [
   },
   {
     slug: "still-becoming",
-    filename: "06_still_becoming.md",
-    number: 6,
+    filename: "09_still_becoming.md",
+    number: 9,
     title: "Still Becoming",
     subtitle: "What am I still searching for?",
     backgroundTint: "#faf6ee",

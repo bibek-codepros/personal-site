@@ -1,4 +1,5 @@
 import { FadeIn } from "@/components/animations/FadeIn";
+import { MOTION } from "@/components/animations/variants";
 import { Button } from "@/components/buttons/Button";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
@@ -47,7 +48,7 @@ export function OneMinuteStorySection() {
     <Section spacing="lg">
       <Container>
         <div className="mx-auto max-w-[720px]">
-          <FadeIn>
+          <FadeIn distance={MOTION.land.distance} duration={MOTION.land.duration}>
             <Heading variant="section" as="h2">
               One Minute Story
             </Heading>

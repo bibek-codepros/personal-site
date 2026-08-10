@@ -16,6 +16,10 @@ const SUPPORTING_LINE_GROUPS = [
   [
     "It's the story of curiosity, unexpected turns, quiet failures, meaningful people, and the journey that shaped who I am today.",
   ],
+  [
+    "Some of it happened while I was moving forward.",
+    "Some of it happened while I couldn't move at all.",
+  ],
   ["If you're looking for my work, you'll find it.", "But before that…"],
   ["I'd love to tell you the story behind it."],
 ];

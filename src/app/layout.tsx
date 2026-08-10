@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display, Geist_Mono } from "next/font/google";
 
 import { MotionProvider } from "@/components/animations/MotionProvider";
+import { SITE_URL } from "@/lib/site";
 
 import "./globals.css";
 
@@ -23,18 +24,19 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-const siteUrl = "https://bibeksigdel.com";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
   title: "Bibek Sigdel | HOME",
   description:
     "A narrative-first digital home where I share my journey, the people who shaped it, and the lessons I'm still learning.",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Bibek Sigdel | HOME",
     description:
       "A narrative-first digital home where I share my journey, the people who shaped it, and the lessons I'm still learning.",
-    url: siteUrl,
+    url: SITE_URL,
     siteName: "HOME",
     type: "website",
   },

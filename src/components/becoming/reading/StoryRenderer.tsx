@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 
 import { FadeIn } from "@/components/animations/FadeIn";
+import { MOTION } from "@/components/animations/variants";
 import { Divider } from "@/components/shared/Divider";
 import { Paragraph } from "@/components/typography/Paragraph";
 import { QuoteBlock } from "@/components/typography/QuoteBlock";
@@ -12,22 +13,27 @@ import { MemoryCard } from "./MemoryCard";
 
 /**
  * Renders the manuscript's markdown exactly as written — headings,
- * paragraphs, emphasis, links, dividers, and (if ever used) blockquotes —
- * with only one addition: paragraphs entering the viewport fade up
- * gently, per docs/becoming/05_BECOMING_INTERACTIONS.md. Paragraph-group
- * spacing (48px) follows 01_EDITORIAL_SYSTEM.md's Vertical Rhythm.
+ * paragraphs, emphasis, links, dividers, and (if ever used) blockquotes.
+ * Motion here must never compete with reading (priority order: readability,
+ * pacing, emotional space, navigation, motion — in that order, always) —
+ * so the whole block settles once, quietly, rather than animating every
+ * paragraph as it scrolls into view. A reader shouldn't feel like they're
+ * watching a presentation advance line by line. Paragraph-group spacing
+ * (48px) follows 01_EDITORIAL_SYSTEM.md's Vertical Rhythm.
  */
 function MarkdownFlow({ markdown }: { markdown: string }) {
   return (
-    <div className="space-y-12">
+    <FadeIn
+      distance={MOTION.whisper.distance}
+      duration={MOTION.whisper.duration}
+      className="space-y-12"
+    >
       <ReactMarkdown
         components={{
           p: ({ children }) => (
-            <FadeIn distance={8} duration={0.4}>
-              <Paragraph constrained={false} className="text-pretty">
-                {children}
-              </Paragraph>
-            </FadeIn>
+            <Paragraph constrained={false} className="text-pretty">
+              {children}
+            </Paragraph>
           ),
           hr: () => <Divider className="my-12" />,
           h2: ({ children }) => (
@@ -40,7 +46,7 @@ function MarkdownFlow({ markdown }: { markdown: string }) {
       >
         {markdown}
       </ReactMarkdown>
-    </div>
+    </FadeIn>
   );
 }
 
