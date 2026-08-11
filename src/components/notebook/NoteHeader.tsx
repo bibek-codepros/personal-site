@@ -1,23 +1,23 @@
 import { FadeIn } from "@/components/animations/FadeIn";
-import { QuietNav } from "@/components/layout/QuietNav";
 import { Divider } from "@/components/shared/Divider";
+import { SiteHeader } from "@/components/shared/SiteHeader";
 
 import type { Note, Volume } from "@/lib/notebook";
 
 const STAGGER = 0.1;
 
-/** Every note opens the same quiet way — a way back to Home or the
- *  Notebook, a category eyebrow, the title, then chapter/volume/reading-time.
- *  Unlike every other QuietNav usage, `current` is deliberately left unset
- *  here: a note is several clicks deep into the Notebook, not standing on
- *  its index, so "Notebook" should stay a real link back to it rather than
+/** Every note opens the same quiet way — the site header, a category
+ *  eyebrow, the title, then chapter/volume/reading-time. Unlike every
+ *  other SiteHeader usage, `current` is deliberately left unset here: a
+ *  note is several clicks deep into the Notebook, not standing on its
+ *  index, so "Notebook" should stay a real link back to it rather than
  *  render as unclickable "you are here" text. */
 export function NoteHeader({ note, volume }: { note: Note; volume: Volume }) {
   return (
     <header>
       <FadeIn onScroll={false} distance={12} delay={STAGGER * 0}>
-        <QuietNav />
-        <p className="mt-3 text-xs font-medium tracking-wide text-muted-foreground uppercase">
+        <SiteHeader />
+        <p className="mt-6 text-xs font-medium tracking-wide text-muted-foreground uppercase">
           {note.category}
         </p>
       </FadeIn>

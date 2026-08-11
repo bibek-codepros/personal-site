@@ -8,7 +8,6 @@ import { ILLUSTRATIONS } from "@/components/becoming/reading/illustrationMap";
 import { PageNumber } from "@/components/becoming/reading/PageNumber";
 import { ReadingLayout } from "@/components/becoming/reading/ReadingLayout";
 import { ReflectionBlock } from "@/components/becoming/reading/ReflectionBlock";
-import { RunningHeader } from "@/components/becoming/reading/RunningHeader";
 import { StoryRenderer, type MemoryInjection } from "@/components/becoming/reading/StoryRenderer";
 import { SupportingDetails } from "@/components/becoming/reading/SupportingDetail";
 import { getAdjacentChapters } from "@/content/chaptersMeta";
@@ -65,7 +64,6 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
 
   return (
     <ReadingLayout backgroundTint={chapter.backgroundTint}>
-      <RunningHeader chapterNumber={chapter.number} backgroundTint={chapter.backgroundTint} />
       <PageNumber number={chapter.number} />
 
       <ChapterHero

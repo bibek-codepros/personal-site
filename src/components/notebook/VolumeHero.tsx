@@ -1,8 +1,8 @@
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Button } from "@/components/buttons/Button";
 import { Container } from "@/components/layout/Container";
-import { QuietNav } from "@/components/layout/QuietNav";
 import { Section } from "@/components/layout/Section";
+import { SiteHeader } from "@/components/shared/SiteHeader";
 import { Paragraph } from "@/components/typography/Paragraph";
 import { getVolumeReadingTime, type Volume } from "@/lib/notebook";
 
@@ -21,7 +21,7 @@ export function VolumeHero({ volume }: { volume: Volume }) {
     <Section as="header" spacing="lg">
       <Container>
         <FadeIn onScroll={false} className="mx-auto max-w-[680px]">
-          <QuietNav current="notebook" className="mb-6" />
+          <SiteHeader current="notebook" className="mb-8" />
           <p className="text-xs font-medium tracking-[0.15em] text-muted-foreground uppercase">
             Volume {String(volume.number).padStart(2, "0")}
           </p>

@@ -6,6 +6,7 @@ import { NokiaPhoneIllustration } from "@/components/story/NokiaPhoneIllustratio
 import { QuietOfficeIllustration } from "@/components/story/QuietOfficeIllustration";
 import { RoomIllustration } from "@/components/story/RoomIllustration";
 import { WindowSeatIllustration } from "@/components/story/WindowSeatIllustration";
+import { WristbandIllustration } from "@/components/story/WristbandIllustration";
 
 import type { IllustrationKey } from "@/content/chaptersMeta";
 
@@ -24,4 +25,5 @@ export const ILLUSTRATIONS: Record<IllustrationKey, () => ReactElement> = {
   windowSeat: WindowSeatIllustration,
   desk: DeskIllustration,
   room: RoomIllustration,
+  wristband: WristbandIllustration,
 };

@@ -1,6 +1,6 @@
 import { FadeIn } from "@/components/animations/FadeIn";
-import { QuietNav } from "@/components/layout/QuietNav";
 import { Divider } from "@/components/shared/Divider";
+import { SiteHeader } from "@/components/shared/SiteHeader";
 
 type ChapterHeroProps = {
   number: number;
@@ -16,8 +16,8 @@ export function ChapterHero({ number, title, subtitle, readingTime }: ChapterHer
   return (
     <header>
       <FadeIn onScroll={false} distance={12} delay={STAGGER * 0}>
-        <QuietNav current="becoming" />
-        <p className="mt-3 font-mono text-xs tracking-wide text-muted-foreground uppercase">
+        <SiteHeader current="becoming" />
+        <p className="mt-6 font-mono text-xs tracking-wide text-muted-foreground uppercase">
           Chapter {String(number).padStart(2, "0")}
         </p>
       </FadeIn>

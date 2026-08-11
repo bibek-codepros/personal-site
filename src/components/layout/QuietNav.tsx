@@ -10,7 +10,9 @@ const ITEMS = [
 ] as const;
 
 type QuietNavProps = {
-  /** The section the reader is already in — rendered as plain text, not a link. */
+  /** The section the reader is already in — rendered stronger/darker
+   *  than the rest, not as a plain unclickable label: on a live site,
+   *  "current" still needs to read at a glance, not just be inert. */
   current?: (typeof ITEMS)[number]["key"];
   className?: string;
 };
@@ -18,24 +20,24 @@ type QuietNavProps = {
 const LINK_CLASSES =
   "rounded-sm text-xs font-medium tracking-[0.15em] text-muted-foreground uppercase transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
 
+const CURRENT_CLASSES =
+  "rounded-sm text-xs font-semibold tracking-[0.15em] text-foreground uppercase";
+
 /**
  * A quiet way to leave a page without reaching for the browser's Back
- * button — never a navbar. Same small, understated eyebrow style
- * already used for the single "Home" / "Notebook" links this replaces.
+ * button — never a navbar. "Home" is listed here alongside the logo on
+ * purpose: the two aren't redundant, this is the explicit navigation
+ * item, the logo is the signature.
  */
 export function QuietNav({ current, className }: QuietNavProps) {
   return (
     <nav
       aria-label="Site"
-      className={cn("flex flex-wrap items-center gap-x-4 gap-y-1", className)}
+      className={cn("flex flex-wrap items-center gap-x-6 gap-y-1", className)}
     >
       {ITEMS.map((item) =>
         item.key === current ? (
-          <span
-            key={item.key}
-            aria-current="page"
-            className="text-xs font-medium tracking-[0.15em] text-muted-foreground/70 uppercase"
-          >
+          <span key={item.key} aria-current="page" className={CURRENT_CLASSES}>
             {item.label}
           </span>
         ) : (

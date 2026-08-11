@@ -2,6 +2,7 @@ import { FadeIn } from "@/components/animations/FadeIn";
 import { Button } from "@/components/buttons/Button";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
+import { SiteHeader } from "@/components/shared/SiteHeader";
 import { NokiaPhoneIllustration } from "@/components/story/NokiaPhoneIllustration";
 import { Heading } from "@/components/typography/Heading";
 import { Paragraph } from "@/components/typography/Paragraph";
@@ -36,6 +37,15 @@ export function Hero() {
         aria-hidden="true"
         className="hero-ambient pointer-events-none absolute inset-0 -z-10 opacity-50 [background:radial-gradient(640px_420px_at_28%_22%,var(--card)_0%,transparent_70%)]"
       />
+
+      <FadeIn
+        onScroll={false}
+        duration={0.5}
+        distance={16}
+        className="absolute top-6 left-6 z-10 md:top-8 md:left-10"
+      >
+        <SiteHeader variant="minimal" />
+      </FadeIn>
 
       <Container>
         <div className="grid items-center gap-16 lg:grid-cols-[minmax(0,640px)_auto] lg:gap-20">

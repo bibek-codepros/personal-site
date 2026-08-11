@@ -47,7 +47,8 @@ export type IllustrationKey =
   | "compass"
   | "windowSeat"
   | "desk"
-  | "room";
+  | "room"
+  | "wristband";
 
 export type ChapterMeta = {
   slug: string;
@@ -177,15 +178,18 @@ export const CHAPTERS_META: ChapterMeta[] = [
   {
     // New chapter (Phase 12) — the first half of the former single ACL
     // chapter, split at its existing "One flight of stairs." divider.
-    // Deliberately has no illustrationKey: no existing illustration
-    // depicts a hospital or surgery, and Phase 12 explicitly forbids
-    // inventing one. Subtitle newly authored, same basis as "The Dream"'s.
+    // Subtitle newly authored, same basis as "The Dream"'s.
+    //
+    // Illustration added later (Phase 16 identity refinement): a single
+    // hospital wristband, not a bed/knee/diagram — the chapter isn't
+    // about the injury, it's about becoming someone who has to wait.
     slug: "no-room-for-me",
     filename: "06_no_room_for_me.md",
     number: 6,
     title: "No Room For Me",
     subtitle: "What do you fear when the fear changes shape?",
     backgroundTint: "#f5f4f2",
+    illustrationKey: "wristband",
   },
   {
     // Second half of the former single ACL chapter (Phase 12 split).

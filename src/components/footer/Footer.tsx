@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/layout/Container";
@@ -20,7 +21,21 @@ export function Footer() {
     <footer className="border-t border-border bg-secondary">
       <Container>
         <div className="py-24 md:py-28">
-          <div className="max-w-[560px]">
+          <Link
+            href="/"
+            aria-label="Back to Home"
+            className="inline-flex rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-secondary"
+          >
+            <Image
+              src="/brand/bibek-dark.svg"
+              alt=""
+              width={483}
+              height={100}
+              className="h-5 w-auto"
+            />
+          </Link>
+
+          <div className="mt-12 max-w-[560px]">
             <Heading variant="page" as="h2">
               Before You Leave
             </Heading>
