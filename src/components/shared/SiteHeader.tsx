@@ -29,14 +29,16 @@ const LOGO_LINK_CLASSES =
  * reading column (Becoming/Notebook) — regardless of how wide or narrow
  * the page around it is, so the logo and nav land at the same horizontal
  * position on every page rather than drifting with each page's own
- * content width.
+ * content width. The `minimal` variant (homepage) deliberately skips the
+ * centering: it's a left-aligned masthead sitting in normal flow above
+ * Hero's own left-aligned content, not a floating badge.
  */
 export function SiteHeader({ current, variant = "default", className }: SiteHeaderProps) {
   return (
     <div
       className={cn(
-        "mx-auto flex max-w-[680px] flex-wrap items-center justify-between gap-x-8 gap-y-3",
-        variant === "default" && "border-b border-border pb-6",
+        "flex flex-wrap items-center justify-between gap-x-8 gap-y-3",
+        variant === "default" && "mx-auto max-w-[680px] border-b border-border pb-6",
         className
       )}
     >

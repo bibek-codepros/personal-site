@@ -38,16 +38,11 @@ export function Hero() {
         className="hero-ambient pointer-events-none absolute inset-0 -z-10 opacity-50 [background:radial-gradient(640px_420px_at_28%_22%,var(--card)_0%,transparent_70%)]"
       />
 
-      <FadeIn
-        onScroll={false}
-        duration={0.5}
-        distance={16}
-        className="absolute top-6 left-6 z-10 md:top-8 md:left-10"
-      >
-        <SiteHeader variant="minimal" />
-      </FadeIn>
-
       <Container>
+        <FadeIn onScroll={false} duration={0.5} distance={16} className="mb-14 md:mb-20">
+          <SiteHeader variant="minimal" />
+        </FadeIn>
+
         <div className="grid items-center gap-16 lg:grid-cols-[minmax(0,640px)_auto] lg:gap-20">
           <div>
             <FadeIn onScroll={false} duration={0.5} distance={16}>
