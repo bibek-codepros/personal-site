@@ -140,13 +140,19 @@ export function ContactForm() {
         transition={{ duration: 0.5 }}
         className="rounded-lg border border-border px-6 py-8"
       >
-        <p className="text-lg text-foreground">Got it.</p>
+        <p className="text-lg text-foreground">Thank you for reaching out.</p>
         <p className="mt-2 text-lg text-foreground">
-          I&rsquo;ll read through it properly and get back to you.
+          I&rsquo;ve received your message and will read through it with care. I&rsquo;ll
+          be in touch soon.
         </p>
         <p className="mt-4 font-heading text-xl text-muted-foreground italic">
           &mdash; Bibek
         </p>
+        <div className="mt-8">
+          <Button href="/" variant="primary" size="lg">
+            Back to Home →
+          </Button>
+        </div>
       </m.div>
     );
   }

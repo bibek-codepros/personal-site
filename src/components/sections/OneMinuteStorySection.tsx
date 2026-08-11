@@ -34,7 +34,7 @@ const STORY_LINE_GROUPS = [
     "I think it's about discovering that sometimes the life we never planned becomes the one we're most grateful for.",
   ],
   [
-    "HOME exists to share that journey.",
+    "This place exists to share that journey.",
     "Maybe somewhere along the way, you'll recognize a part of your own.",
   ],
 ];
