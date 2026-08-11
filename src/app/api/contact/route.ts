@@ -3,6 +3,10 @@ import { NextResponse } from "next/server";
 import { SITE_URL } from "@/lib/site";
 
 export const runtime = "nodejs";
+// Google Apps Script Web Apps occasionally have slow cold starts. Give the
+// function enough room for one retry within a single request lifecycle
+// rather than surfacing a raw gateway timeout to the visitor.
+export const maxDuration = 20;
 
 type InquiryPayload = {
   name?: string;
@@ -36,6 +40,21 @@ function isRateLimited(ip: string): boolean {
   recent.push(now);
   submissionsByIp.set(ip, recent);
   return recent.length > RATE_LIMIT_MAX;
+}
+
+async function postWithTimeout(url: string, body: unknown, timeoutMs: number): Promise<Response> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+      signal: controller.signal,
+    });
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 function validate(body: InquiryPayload): string | null {
@@ -108,25 +127,26 @@ export async function POST(request: Request) {
     status: "New",
   };
 
-  try {
-    const sheetResponse = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(record),
-    });
-
-    if (!sheetResponse.ok) {
-      return NextResponse.json(
-        { message: "Something went wrong on my end. Please try again, or email me directly." },
-        { status: 502 }
-      );
+  // One retry, since Apps Script Web Apps occasionally have slow cold
+  // starts — a single slow response shouldn't fail a real inquiry. Kept
+  // short (worst case ~10.3s total) so a genuinely broken endpoint fails
+  // fast instead of leaving the visitor staring at "Sending…".
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      const sheetResponse = await postWithTimeout(endpoint, record, 5000);
+      if (sheetResponse.ok) {
+        return NextResponse.json({ ok: true });
+      }
+    } catch {
+      // fall through to retry or final failure below
     }
-
-    return NextResponse.json({ ok: true });
-  } catch {
-    return NextResponse.json(
-      { message: "Something went wrong on my end. Please try again, or email me directly." },
-      { status: 502 }
-    );
+    if (attempt === 1) {
+      await new Promise((resolve) => setTimeout(resolve, 300));
+    }
   }
+
+  return NextResponse.json(
+    { message: "Something went wrong on my end. Please try again, or email me directly." },
+    { status: 502 }
+  );
 }

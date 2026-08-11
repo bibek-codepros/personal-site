@@ -140,7 +140,7 @@ export function ContactForm() {
         transition={{ duration: 0.5 }}
         className="rounded-lg border border-border px-6 py-8"
       >
-        <p className="text-lg text-foreground">Thank you for reaching out.</p>
+        <p className="text-lg text-foreground">Thank you for reaching out. 🙂</p>
         <p className="mt-2 text-lg text-foreground">
           I&rsquo;ve received your message and will read through it with care. I&rsquo;ll
           be in touch soon.
