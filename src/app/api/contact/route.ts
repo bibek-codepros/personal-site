@@ -3,10 +3,9 @@ import { NextResponse } from "next/server";
 import { SITE_URL } from "@/lib/site";
 
 export const runtime = "nodejs";
-// Google Apps Script Web Apps occasionally have slow cold starts. Give the
-// function enough room for one retry within a single request lifecycle
-// rather than surfacing a raw gateway timeout to the visitor.
-export const maxDuration = 20;
+// Long enough for one slow Apps Script cold start (see the single-attempt
+// timeout below) plus our own processing overhead.
+export const maxDuration = 15;
 
 type InquiryPayload = {
   name?: string;
@@ -127,22 +126,19 @@ export async function POST(request: Request) {
     status: "New",
   };
 
-  // One retry, since Apps Script Web Apps occasionally have slow cold
-  // starts — a single slow response shouldn't fail a real inquiry. Kept
-  // short (worst case ~10.3s total) so a genuinely broken endpoint fails
-  // fast instead of leaving the visitor staring at "Sending…".
-  for (let attempt = 1; attempt <= 2; attempt++) {
-    try {
-      const sheetResponse = await postWithTimeout(endpoint, record, 5000);
-      if (sheetResponse.ok) {
-        return NextResponse.json({ ok: true });
-      }
-    } catch {
-      // fall through to retry or final failure below
+  // Exactly one attempt, deliberately not retried: Apps Script can finish
+  // the actual work (row + email) even when its HTTP response is slow to
+  // arrive. Retrying on a timeout risks re-running a request that already
+  // succeeded server-side — a duplicate row and a duplicate email from one
+  // real click. A single generous timeout still fails fast instead of
+  // hanging indefinitely, without that duplication risk.
+  try {
+    const sheetResponse = await postWithTimeout(endpoint, record, 10000);
+    if (sheetResponse.ok) {
+      return NextResponse.json({ ok: true });
     }
-    if (attempt === 1) {
-      await new Promise((resolve) => setTimeout(resolve, 300));
-    }
+  } catch {
+    // fall through to the failure response below
   }
 
   return NextResponse.json(
