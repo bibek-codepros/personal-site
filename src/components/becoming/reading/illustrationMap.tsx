@@ -1,9 +1,9 @@
 import type { ReactElement } from "react";
 
+import { ChairsIllustration } from "@/components/story/ChairsIllustration";
 import { ClosedDoorIllustration } from "@/components/story/ClosedDoorIllustration";
 import { DeskIllustration } from "@/components/story/DeskIllustration";
 import { NokiaPhoneIllustration } from "@/components/story/NokiaPhoneIllustration";
-import { QuietOfficeIllustration } from "@/components/story/QuietOfficeIllustration";
 import { RoomIllustration } from "@/components/story/RoomIllustration";
 import { WindowSeatIllustration } from "@/components/story/WindowSeatIllustration";
 import { WristbandIllustration } from "@/components/story/WristbandIllustration";
@@ -20,7 +20,7 @@ export const ILLUSTRATIONS: Record<IllustrationKey, () => ReactElement> = {
   nokia: NokiaPhoneIllustration,
   closedDoor: ClosedDoorIllustration,
   html: HtmlBracketsIllustration,
-  workspace: QuietOfficeIllustration,
+  workspace: ChairsIllustration,
   compass: CompassIllustration,
   windowSeat: WindowSeatIllustration,
   desk: DeskIllustration,

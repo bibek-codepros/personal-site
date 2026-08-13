@@ -2,10 +2,10 @@ import type { ComponentType } from "react";
 
 import { CompassIllustration } from "@/components/becoming/reading/illustrations/CompassIllustration";
 import { HtmlBracketsIllustration } from "@/components/becoming/reading/illustrations/HtmlBracketsIllustration";
+import { ChairsIllustration } from "@/components/story/ChairsIllustration";
 import { ClosedDoorIllustration } from "@/components/story/ClosedDoorIllustration";
 import { DeskIllustration } from "@/components/story/DeskIllustration";
 import { NokiaPhoneIllustration } from "@/components/story/NokiaPhoneIllustration";
-import { QuietOfficeIllustration } from "@/components/story/QuietOfficeIllustration";
 import { RoomIllustration } from "@/components/story/RoomIllustration";
 import { WindowSeatIllustration } from "@/components/story/WindowSeatIllustration";
 
@@ -51,7 +51,7 @@ export const HOME_CHAPTERS: HomeChapter[] = [
     description:
       "Some opportunities don't just change your career. They quietly change who you become.",
     href: "#code-pros",
-    illustration: QuietOfficeIllustration,
+    illustration: ChairsIllustration,
   },
   {
     number: "05",

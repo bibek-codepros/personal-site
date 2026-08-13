@@ -1,9 +1,10 @@
+import Image from "next/image";
+
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Button } from "@/components/buttons/Button";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { SiteHeader } from "@/components/shared/SiteHeader";
-import { NokiaPhoneIllustration } from "@/components/story/NokiaPhoneIllustration";
 import { Heading } from "@/components/typography/Heading";
 import { Paragraph } from "@/components/typography/Paragraph";
 
@@ -20,6 +21,10 @@ const SUPPORTING_LINE_GROUPS = [
   [
     "Some of it happened while I was moving forward.",
     "Some of it happened while I couldn't move at all.",
+  ],
+  [
+    "I call this place HOME.",
+    "Not because it's where I live, but because it holds the pieces of how I became who I am.",
   ],
   ["If you're looking for my work, you'll find it.", "But before that…"],
   ["I'd love to tell you the story behind it."],
@@ -43,7 +48,7 @@ export function Hero() {
           <SiteHeader variant="minimal" />
         </FadeIn>
 
-        <div className="grid items-center gap-16 lg:grid-cols-[minmax(0,640px)_auto] lg:gap-20">
+        <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,640px)_500px] lg:gap-16">
           <div>
             <FadeIn onScroll={false} duration={0.5} distance={16}>
               <p className="text-sm font-medium tracking-wide text-muted-foreground uppercase">
@@ -92,14 +97,19 @@ export function Hero() {
             </FadeIn>
           </div>
 
-          <FadeIn
-            onScroll={false}
-            duration={0.9}
-            delay={0.2}
-            distance={16}
-            className="hidden w-[320px] lg:block"
-          >
-            <NokiaPhoneIllustration />
+          {/* OPTION C — top-aligned; the photo's own negative space
+           *  stands in for the Hero's top whitespace instead of adding a
+           *  separate offset margin on top of it. */}
+          <FadeIn onScroll={false} duration={0.9} delay={0.2} distance={16}>
+            <Image
+              src="/images/bibek/bibek-portrait.jpg"
+              alt="Bibek Sigdel"
+              width={1600}
+              height={2000}
+              priority
+              sizes="(min-width: 1024px) 500px, (min-width: 768px) 400px, 320px"
+              className="aspect-[4/5] w-full max-w-[320px] mx-auto object-cover md:max-w-[400px] lg:mx-0 lg:max-w-full"
+            />
           </FadeIn>
         </div>
       </Container>
