@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display, Geist_Mono } from "next/font/google";
 
 import { MotionProvider } from "@/components/animations/MotionProvider";
-import { SITE_URL } from "@/lib/site";
+import { SITE_IMAGE, SITE_URL } from "@/lib/site";
 
 import "./globals.css";
 
@@ -24,27 +24,30 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+const title = "Bibek Sigdel | HOME — A Digital Memoir";
+const description =
+  "HOME is Bibek Sigdel's digital memoir — a collection of stories, failures, unexpected turns, meaningful people, and the journey of becoming who he is today.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Bibek Sigdel | HOME",
-  description:
-    "A narrative-first digital home where I share my journey, the people who shaped it, and the lessons I'm still learning.",
+  title,
+  description,
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Bibek Sigdel | HOME",
-    description:
-      "A narrative-first digital home where I share my journey, the people who shaped it, and the lessons I'm still learning.",
+    title,
+    description,
     url: SITE_URL,
     siteName: "HOME",
     type: "website",
+    images: [SITE_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bibek Sigdel | HOME",
-    description:
-      "A narrative-first digital home where I share my journey, the people who shaped it, and the lessons I'm still learning.",
+    title,
+    description,
+    images: [SITE_IMAGE.url],
   },
 };
 
