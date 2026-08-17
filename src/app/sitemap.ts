@@ -8,7 +8,7 @@ import { getChapterSlugs } from "@/lib/stories";
  *  themselves are generated from, so this never drifts out of sync as
  *  chapters or notes are added. */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/becoming", "/notebook", "/contact"].map((path) => ({
+  const staticRoutes = ["", "/becoming", "/notebook", "/contact", "/privacy"].map((path) => ({
     url: `${SITE_URL}${path}`,
   }));
 

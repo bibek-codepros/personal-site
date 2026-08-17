@@ -5,6 +5,7 @@ import { FadeIn } from "@/components/animations/FadeIn";
 import { NoteHeader } from "@/components/notebook/NoteHeader";
 import { NoteNavigation } from "@/components/notebook/NoteNavigation";
 import { NoteRenderer } from "@/components/notebook/NoteRenderer";
+import { NOTE_VISUALS } from "@/content/notebookVisuals";
 import {
   getAdjacentNotes,
   getAllNoteParams,
@@ -12,6 +13,7 @@ import {
   getVolumeBySlug,
 } from "@/lib/notebook";
 import { pageMetadata } from "@/lib/site";
+import { cn } from "@/lib/utils";
 
 type NotePageProps = {
   params: Promise<{ volume: string; slug: string }>;
@@ -45,10 +47,21 @@ export default async function NotePage({ params }: NotePageProps) {
   if (!volume || !note) notFound();
 
   const { previous, next } = getAdjacentNotes(volumeSlug, note.chapter);
+  const noteVisual = NOTE_VISUALS[note.slug];
 
   return (
     <div className="mx-auto max-w-[680px] px-6 py-16 md:py-24">
       <NoteHeader note={note} volume={volume} />
+
+      {noteVisual && (
+        <FadeIn
+          onScroll={false}
+          delay={0.3}
+          className={cn("mt-10 max-w-[240px]", noteVisual.className)}
+        >
+          <noteVisual.Component />
+        </FadeIn>
+      )}
 
       <FadeIn onScroll={false} delay={0.35} className="mt-12">
         <NoteRenderer note={note} />

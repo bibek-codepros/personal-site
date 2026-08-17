@@ -77,9 +77,12 @@ export function Footer() {
             </ul>
           </nav>
 
-          <p className="mt-16 text-xs text-muted-foreground">
-            © Bibek Sigdel. Built with curiosity. Still becoming.
-          </p>
+          <div className="mt-16 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
+            <p>© Bibek Sigdel. Built with curiosity. Still becoming.</p>
+            <Link href="/privacy" className={LINK_CLASSES}>
+              Privacy
+            </Link>
+          </div>
         </div>
       </Container>
     </footer>

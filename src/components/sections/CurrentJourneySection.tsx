@@ -61,7 +61,8 @@ export function CurrentJourneySection() {
             </Heading>
             <Paragraph constrained={false} className="mt-6">
               My story isn&rsquo;t finished. These are the things quietly
-              occupying my days.
+              occupying my days &mdash; the work I do today grew out of the
+              same curiosity that started all of this.
             </Paragraph>
           </FadeIn>
         </div>
