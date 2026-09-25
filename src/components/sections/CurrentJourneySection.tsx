@@ -1,86 +1,59 @@
-import { FadeIn } from "@/components/animations/FadeIn";
-import { MOTION } from "@/components/animations/variants";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { Heading } from "@/components/typography/Heading";
 import { Paragraph } from "@/components/typography/Paragraph";
 
-import { HighlightArea } from "./HighlightArea";
+import { CarryingItem } from "./currently/CarryingItem";
+import { CarryingPanel } from "./currently/CarryingPanel";
+import { CARRYING_ITEMS } from "./currently/currently.data";
 
-const VALUES = [
-  {
-    number: "01",
-    title: "Learning",
-    description:
-      "Every day I try to leave knowing a little more than I did yesterday.",
-  },
-  {
-    number: "02",
-    title: "Building",
-    description:
-      "Helping create products, businesses, and ideas that solve real problems.",
-  },
-  {
-    number: "03",
-    title: "Leading",
-    description:
-      "Supporting people, making decisions, and learning that leadership begins with listening.",
-  },
-  {
-    number: "04",
-    title: "Research",
-    description: "Still curious. Still reading. Still asking questions.",
-  },
-  {
-    number: "05",
-    title: "Family",
-    description:
-      "Success means very little if I can't share it with the people I love.",
-  },
-  {
-    number: "06",
-    title: "Life",
-    description:
-      "Trying to make fewer assumptions. Trying to make better decisions. Trying to become a little better every day.",
-  },
-] as const;
-
-/** Today's own quiet chapter — numbered like the others, not a values grid. */
+/**
+ * What Bibek is concretely inside right now — four present-tense problems,
+ * each ending in a question he hasn't answered yet.
+ *
+ * A single photograph stays pinned in the left column while the four items
+ * scroll past it; a contents list and progress bar (both sticky-panel-only,
+ * hidden below `lg` — see CarryingPanel) track which one is being read.
+ * Every settled state is complete and correct before any motion runs: the
+ * `anim`/`in`/`seen` classes that unlock motion are added imperatively,
+ * after mount, never through conditional rendering.
+ */
 export function CurrentJourneySection() {
   return (
     <Section
-      spacing="lg"
       background="secondary"
+      className="pt-[104px] pb-[120px] md:pt-[140px] md:pb-[160px]"
       aria-labelledby="current-journey-heading"
     >
       <Container>
-        <div className="max-w-[720px]">
-          <FadeIn distance={MOTION.pause.distance} duration={MOTION.pause.duration}>
-            <Heading id="current-journey-heading" variant="section">
-              What I&rsquo;m Building Today
-            </Heading>
-            <Paragraph constrained={false} className="mt-6">
-              My story isn&rsquo;t finished. These are the things quietly
-              occupying my days &mdash; the work I do today grew out of the
-              same curiosity that started all of this.
-            </Paragraph>
-          </FadeIn>
-        </div>
-
-        <FadeIn
-          distance={MOTION.pause.distance}
-          duration={MOTION.pause.duration}
-          className="mt-20 grid grid-cols-1 gap-x-16 gap-y-16 md:mt-24 md:grid-cols-2"
+        <Heading id="current-journey-heading" variant="section">
+          What I&rsquo;m Carrying These Days
+        </Heading>
+        <Paragraph
+          variant="muted"
+          constrained={false}
+          className="mt-[18px] max-w-[44ch] text-base md:mt-[22px] md:text-lg"
         >
-          {VALUES.map((value) => (
-            <HighlightArea
-              key={value.title}
-              number={value.number}
-              title={value.title}
-              description={value.description}
-            />
-          ))}
-        </FadeIn>
+          Four things I&rsquo;m in the middle of. None of them finished.
+        </Paragraph>
+
+        <div className="mt-14 lg:mt-24 lg:grid lg:grid-cols-[330px_1fr] lg:items-start lg:gap-x-[72px] xl:grid-cols-[380px_1fr] xl:gap-x-24">
+          <CarryingPanel
+            items={CARRYING_ITEMS}
+            photoSrc="/images/carrying/desk.jpg"
+            photoAlt="Bibek working at his desk, laptop open beside a second monitor"
+          />
+
+          <div className="mt-10 lg:mt-0">
+            {CARRYING_ITEMS.map((thought, index) => (
+              <CarryingItem
+                key={thought.contentsLabel}
+                thought={thought}
+                index={index}
+              />
+            ))}
+          </div>
+        </div>
       </Container>
     </Section>
   );
